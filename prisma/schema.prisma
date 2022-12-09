@@ -16,11 +16,17 @@ model User {
   passwordHash  String
   userAuthToken String @unique
 
+  name String
+  surname String
+  student_number String
+  avatar String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   role   Roles @relation(fields: [roleId], references: [id])
   roleId Int
+
 }
 
 model Roles {
