@@ -4,8 +4,11 @@
 declare namespace App {
 	interface Locals {
 		user: {
-			name: string
+			username: string
 			role: string
+			name: string
+			surname: string
+			student_number: string
 		}
 	}
 

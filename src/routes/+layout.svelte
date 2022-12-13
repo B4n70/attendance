@@ -18,6 +18,7 @@
 
 	{#if $page.data.user}
 		<a href="/admin">Admin</a>
+		<a href="/profile">Profile</a>
 
 		<form
 			class="logout"
