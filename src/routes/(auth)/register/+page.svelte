@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 	import type { ActionData } from './$types'
-
 	export let form: ActionData
 </script>
 
@@ -18,9 +17,34 @@
 		<input id="password" name="password" type="password" required />
 	</div>
 
+
+
 	{#if form?.user}
 		<p class="error">Username is taken.</p>
 	{/if}
 
+
+	<div>
+		<label for="fname">First Name</label>
+		<input id="fname" name="fname" type="text" required />
+	</div>
+
+	<div>
+		<label for="surname">Surname</label>
+		<input id="surname" name="surname" type="text" required />
+	</div>
+	
+
+	<div>
+		<label for="student_number">student_number</label>
+		<input id="student_number" name="student_number" type="text" required />
+	</div>
+
+	
+	<div>
+		<label for="avatar">avatar</label>
+		<input id="avatar" name="avatar" type="text"  />
+	</div>
+	
 	<button type="submit">Register</button>
 </form>

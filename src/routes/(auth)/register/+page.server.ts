@@ -22,6 +22,10 @@ const register: Action = async ({ request }) => {
 	const data = await request.formData()
 	const username = data.get('username')
 	const password = data.get('password')
+	const fname = data.get('fname')
+	const surname = data.get('surname')
+	const student_number = data.get('student_number')
+	const avatar = data.get('avatar')
 
 	if (
 		typeof username !== 'string' ||
@@ -46,6 +50,10 @@ const register: Action = async ({ request }) => {
 			passwordHash: await bcrypt.hash(password, 10),
 			userAuthToken: crypto.randomUUID(),
 			role: { connect: { name: Roles.USER } },
+			fname,
+			surname,
+			student_number,
+            avatar,
 		},
 	})
 

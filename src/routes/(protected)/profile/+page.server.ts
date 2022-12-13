@@ -7,3 +7,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/')
 	}
 }
+
+  

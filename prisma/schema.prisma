@@ -16,9 +16,9 @@ model User {
   passwordHash  String
   userAuthToken String @unique
 
-  name String
+  fname String
   surname String
-  student_number String
+  student_number String @unique
   avatar String
 
   createdAt DateTime @default(now())
@@ -33,6 +33,12 @@ model Roles {
   id   Int    @id @default(autoincrement())
   name String @unique
   User User[]
+}
+
+model Attendance {
+  id   Int    @id @default(autoincrement())
+  student_number String @unique
+  createdAt DateTime @default(now())
 }
 
 // Use enums when you change database
