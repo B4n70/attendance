@@ -3,7 +3,7 @@ import type { PageServerLoad, RequestEvent } from './$types'
 import { db } from '$lib/database'
 
 
-export const load: PageServerLoad = async ({ locals, fetch }:LoadEvent) => {
+export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 	// redirect user if not logged in
 	if (!locals.user) {
 		throw redirect(302, '/')
@@ -15,8 +15,12 @@ export const load: PageServerLoad = async ({ locals, fetch }:LoadEvent) => {
 
 	for (const result in attendance) {
 		//result.name = await db.users.findFirst({ select: { name: true }, where: x => x.id === result.id })
-		let { fname, surname } = await fetch(`/api/getUser/${attendance[result].student_number}`).then(x => x.json())
-		attendance[result].name = `${fname} ${surname}`
+		//let { fname, surname } = await fetch(`/api/getUser/${attendance[result].student_number}`).then(x => x.json())
+		let ret = await fetch(`/api/getUser/${attendance[result].student_number}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+		console.log({ret})
+		if (ret !== null) {
+		  attendance[result].name = `${ret.fname} ${ret.surname}`
+		}
 	}
 
 
