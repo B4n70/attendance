@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores'
+	import QrCode from "svelte-qrcode"
 </script>
 
 <h1>Profile</h1>
@@ -14,7 +15,9 @@
 
 
 	<p>User student_number {$page.data.user.student_number}</p>
+	<br />
 	<div class="container">
+		<QrCode value="{$page.data.user.student_number}" />
 	  </div>
 {/if}
 

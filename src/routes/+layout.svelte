@@ -12,7 +12,7 @@
 </svelte:head>
 
 <nav>
-	{#if $page.data.user}
+	{#if !$page.data.user}
 		<a href="/login">Login</a>
 		<a href="/register">Register</a>
 	{/if}
@@ -22,6 +22,7 @@
 		<a href="/profile">Profile</a>
 		<a href="/attendance">Attendance</a>
 		<a href="/view_attendance">View Attendance</a>
+		<a href="/class_times">Class Times</a>
 
 		<form
 			class="logout"

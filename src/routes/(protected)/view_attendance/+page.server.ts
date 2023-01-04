@@ -2,7 +2,6 @@ import { redirect, type LoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad, RequestEvent } from './$types'
 import { db } from '$lib/database'
 
-
 export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 	// redirect user if not logged in
 	if (!locals.user) {
@@ -17,7 +16,7 @@ export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 		//result.name = await db.users.findFirst({ select: { name: true }, where: x => x.id === result.id })
 		//let { fname, surname } = await fetch(`/api/getUser/${attendance[result].student_number}`).then(x => x.json())
 		let ret = await fetch(`/api/getUser/${attendance[result].student_number}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
-		console.log({ret})
+		//console.log({ret})
 		if (ret !== null) {
 		  attendance[result].name = `${ret.fname} ${ret.surname}`
 		}
@@ -26,7 +25,3 @@ export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 
 	return { attendance: Object.values(attendance) }
 }
-
-
-
-

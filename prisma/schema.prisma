@@ -41,6 +41,13 @@ model Attendance {
   createdAt DateTime @default(now())
 }
 
+model Classes {
+  id   Int    @id @default(autoincrement())
+  status Boolean
+  description String
+  createdAt DateTime @default(now())
+}
+
 // Use enums when you change database
 // because SQLite doesn't support it
 // https://www.prisma.io/docs/reference/database-reference/database-features#misc
