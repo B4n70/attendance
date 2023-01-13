@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,22 +8,18 @@ datasource db {
 }
 
 model User {
-  id            String @id @default(uuid())
-  username      String @unique
-  passwordHash  String
-  userAuthToken String @unique
-
-  fname String
-  surname String
-  student_number String @unique
-  avatar String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  role   Roles @relation(fields: [roleId], references: [id])
-  roleId Int
-
+  id             String   @id @default(uuid())
+  username       String   @unique
+  passwordHash   String
+  userAuthToken  String   @unique
+  fname          String
+  surname        String
+  student_number String   @unique
+  avatar         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  roleId         Int
+  role           Roles    @relation(fields: [roleId], references: [id])
 }
 
 model Roles {
@@ -36,27 +29,19 @@ model Roles {
 }
 
 model Attendance {
-  id   Int    @id @default(autoincrement())
-  student_number String @unique
-  createdAt DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  student_number String
+  className      String
+  InOrOut        String
+  timeAttendance String 
+  createdAt      DateTime @default(now())
 }
 
 model Classes {
-  id   Int    @id @default(autoincrement())
-  status Boolean
+  id          Int      @id @default(autoincrement())
+  status      Boolean
   description String
-  createdAt DateTime @default(now())
+  startTime   DateTime 
+  endTime     DateTime 
+  createdAt   DateTime @default(now())
 }
-
-// Use enums when you change database
-// because SQLite doesn't support it
-// https://www.prisma.io/docs/reference/database-reference/database-features#misc
-
-// model User {
-//   role Role @default(USER)
-// }
-
-// enum Role {
-//   USER
-//   ADMIN
-// }

@@ -14,11 +14,11 @@
 
 <h1>View Attendance</h1>
 
-<table>
-	<tr><th>student number</th><th>Name</th><th>Date</th></tr>
+<table class="tableWithBorder"> 
+	<tr><th>student number</th><th>Name</th><th>Date</th><th>Class</th><th>Scanned</th></tr>
 {#if $page.data.user}
 {#each data.attendance as att}
-	<tr><td>{att.student_number}</td><td>{att.name}</td><td>{att.createdAt}</td></tr>
+	<tr><td>{att.student_number}</td><td>{att.name}</td><td>{att.createdAt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td><td>{att.className}</td><td>{att.InOrOut}</td></tr>
 {/each}
 
 {/if}
@@ -30,3 +30,11 @@
 	</form>
 {/if}
 
+<style>
+	.tableWithBorder,
+	.tableWithBorder td,
+	.tableWithBorder th{
+
+		border: 1px solid #555;
+	}
+</style>
