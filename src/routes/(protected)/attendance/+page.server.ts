@@ -7,7 +7,6 @@ function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
 }
 
-
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect user if not logged in
 	if (!locals.user) {
@@ -15,21 +14,22 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	//2001-01-01T14:30:00.000Z
-	let timeAllowance = 45
+	let timeAllowance = 15
 	let theTime = new Date()
-	let earlyTime = addMinutes(theTime, -timeAllowance).toISOString()
-	let lateTime = addMinutes(theTime, timeAllowance).toISOString()
+	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
+	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
 	earlyTime = earlyTime.split("T").pop();
 	lateTime = lateTime.split("T").pop();
 
+	//let nowTime = theTime.toLocaleString().split(", ").pop()
+	//nowTime = nowTime.substring(0, 8)+'.000Z'
+	//nowTime = nowTime.split('T')[1]
 	let nowTime = theTime.toISOString()
-	nowTime = nowTime.split('T')[1]
+	nowTime = nowTime.split("T").pop();
 	
-
-    //console.log(earlyTime );
-    //console.log(lateTime );
-	console.log(nowTime );
-
+    //console.log('earlyTime ' +earlyTime );
+    //console.log('lateTime '+lateTime );
+	//console.log('nowTime ' +nowTime );
 
 	const classes = await db.classes.findMany({
 		select: { description: true, startTime: true, endTime: true },
@@ -37,14 +37,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 			startTime: {
 			  // new Date() creates date with current time and day and etc.
 			  //lte: new Date()
-			  gte: '2001-01-01T'+earlyTime,
-			  lte: '2001-01-01T'+lateTime
+			  lte: '2001-01-01T'+earlyTime,
 			},
+			endTime: {
+				gte: '2001-01-01T'+lateTime
+			  },
 		  },
-		 // orderBy: {
-		//		startTime: 'desc',
-		//  },
-
 	})
 
 	const nextClass = await db.classes.findMany({
@@ -56,6 +54,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 			  gte: '2001-01-01T'+nowTime,
 			},
 		  },
+
+		  orderBy: {
+				startTime: 'asc',
+		  },		  
 	})
 
 	return { classes: Object.values(classes), nextClass: Object.values(nextClass) }
@@ -88,9 +90,14 @@ export const actions = {
 		})
 		if (InOrOutSearch.length >= 1){InOrOut = 'Out'}
 		console.log('now the in or out...')
-
 		console.log(InOrOutSearch)
-		//console.log(db)
+		console.log(InOrOut)
+
+		if (InOrOut =='In'){
+			timeAttendance = FormData.get('startTime')
+		}else{
+			timeAttendance = FormData.get('endTime')
+		}
 
 		let resp = await db.attendance.create({
 			data: {

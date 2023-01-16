@@ -59,9 +59,23 @@ function onScanSuccess(decodedText, decodedResult) {
 function onScanFailure(error) {
 	console.warn(`Code scan error = ${error}`)
 }
-const unixTime = date => Math.floor(date / 1000)
 
+const hoursToNextClass = (nextClassTime, time) => {
+	        var relative = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
+	        const nextClass = Date.parse(`2001-01-01T${nextClassTime}`);
+	        const current = Date.parse(`2001-01-01T${time}`);
+	        let result = (nextClass - current) / 1000 / 60; // Minutes
+	        return relative.format(result, 'minutes');
+	    };
+	
+	let today = new Date();
+    let theTime = today.getHours().toString().padStart(2,0) + ":" + today.getMinutes().toString().padStart(2,0);
+  	let nextClassTime = data.nextClass[0].startTime.toISOString().split("T").pop().substring(0, 5);
+	console.log(theTime)
+	console.log(nextClassTime)
 
+    let NextClassIn = hoursToNextClass(nextClassTime, theTime)
+	
 </script>
 
 
@@ -72,8 +86,6 @@ const unixTime = date => Math.floor(date / 1000)
 
 	class times from {startTime} - class times from {endTime}
 	<br />
-
-
 
 	{#if data.user}
 		<main>
@@ -90,6 +102,8 @@ const unixTime = date => Math.floor(date / 1000)
 				<label for="student_number">student number</label>
 				<input bind:value={scanvalue} id="student_number" name="student_number" type="text" required />
 				<input bind:value={classAttName} id="className" name="className" type="text" required />
+				<input bind:value={startTime} id="startTime" name="startTime" type="text" required />
+				<input bind:value={endTime} id="endTime" name="endTime" type="text" required />
 
 			</div>
 
@@ -107,8 +121,8 @@ const unixTime = date => Math.floor(date / 1000)
 {#if classAttName === ''}
 Class attendance will start in ...
 
-{unixTime(data.nextClass[0].startTime) - unixTime(new Date()) - 978307200}
-<pre>{JSON.stringify(data, null, 2)}</pre>
+{NextClassIn}
+
 {/if}
 
 {#if data.user.role === 'ADMIN'}

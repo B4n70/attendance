@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 	}
 	//db.fetch
 	const attendance = await db.attendance.findMany({
-		select: { student_number: true,  className: true,  InOrOut: true, createdAt: true },
+		select: { student_number: true,  className: true,  InOrOut: true, timeAttendance: true, createdAt: true },
 	})
 
 	for (const result in attendance) {
