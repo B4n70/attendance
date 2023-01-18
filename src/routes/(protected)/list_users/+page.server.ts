@@ -1,26 +1,16 @@
-import { json } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import { redirect, type LoadEvent } from '@sveltejs/kit'
+import type { PageServerLoad, RequestEvent } from './$types'
 import { db } from '$lib/database'
 
+export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
+	// redirect user if not logged in
+	if (!locals.user) {
+		throw redirect(302, '/')
+	}
+	//db.fetch
+	const listUsers = await db.user.findMany({
+		select: { student_number: true,  fname: true,  surname: true },
+	})
 
-export const GET: RequestHandler = async ({ params }) => {
-   let { student_number } = params
-   //console.log(student_number)
-
-   let value = null
-   try {
-      value = await db.user.findFirst({
-         select: { username: true, role: true, fname: true, surname: true, student_number: true },
-         where: {
-            student_number: student_number,
-         }
-      })
-      //console.log({user})
-   } catch(e) {
-      console.log({e})
-      value = {}
-   }
-
-   return json(value)
-};
-
+	return { listUsers: Object.values(listUsers) }
+}
