@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit'
+import { fail, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import { db } from '$lib/database'
 
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	//2001-01-01T14:30:00.000Z
-	let timeAllowance = 15
+	let timeAllowance = 45
 	let theTime = new Date()
 	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
 	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
@@ -64,12 +64,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions = {
-	attendance: async ({request}) => {
+	attendance: async ({request, fetch}) => {
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
 		let className = FormData.get('className')
 		let InOrOut = 'In'
 		let timeAttendance = '0'
+		let signInName = ''
 
 		let nowDate = new Date().toISOString()
 		nowDate = nowDate.substring(0, nowDate.indexOf('T'))
@@ -99,6 +100,14 @@ export const actions = {
 			timeAttendance = FormData.get('endTime')
 		}
 
+
+		let ret = await fetch("/api/getUser/"+student_number, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+		//console.log({ret})
+		if (ret !== null) {
+		  signInName = (ret.fname +' '+ret.surname)
+		}
+
+
 		let resp = await db.attendance.create({
 			data: {
 				student_number,
@@ -107,6 +116,9 @@ export const actions = {
 				timeAttendance
 			},
 		}).then(console.log).catch(console.error)
+
+		return {signInName, className, InOrOut}
+		//fail(400, {error: 'Name too long'})
 
 	}
 }

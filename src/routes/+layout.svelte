@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>SvelteKit Auth</title>
+	<title>CFCI Class Registration</title>
 </svelte:head>
 
 <nav>
@@ -23,6 +23,8 @@
 		<a href="/attendance">Attendance</a>
 		<a href="/view_attendance">View Attendance</a>
 		<a href="/class_times">Class Times</a>
+		<a href="/add_user">Add User</a>
+		<a href="/list_users">List Users</a>
 
 		<form
 			class="logout"

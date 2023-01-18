@@ -30,6 +30,7 @@ onMount(init)
 
 function init() {
 	html5Qrcode = new Html5Qrcode('reader')
+	start()
 }
 
 function start() {
@@ -52,8 +53,13 @@ async function stop() {
 
 
 function onScanSuccess(decodedText, decodedResult) {
-	alert(`Code matched = ${decodedText}`)
+	//alert(`Code matched = ${decodedText}`)
 	scanvalue = decodedText    
+
+	setTimeout(function(){
+		document.getElementById("submitAttendance").submit();
+	},500);
+
 }
 
 function onScanFailure(error) {
@@ -69,17 +75,22 @@ const hoursToNextClass = (nextClassTime, time) => {
 	    };
 	
 	let today = new Date();
-    let theTime = today.getHours().toString().padStart(2,0) + ":" + today.getMinutes().toString().padStart(2,0);
-  	let nextClassTime = data.nextClass[0].startTime.toISOString().split("T").pop().substring(0, 5);
-	console.log(theTime)
-	console.log(nextClassTime)
+	let theTime
+	let nextClassTime
+	let NextClassIn
 
-    let NextClassIn = hoursToNextClass(nextClassTime, theTime)
+	//setInterval(() => {
+		//redirect(303, '/attendance')
+	//}, 1000)
 	
+	theTime = today.toLocaleTimeString().substring(0, 5);
+	nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+	NextClassIn = hoursToNextClass(nextClassTime, theTime)
+ 
+
 </script>
 
-
-<pre>{JSON.stringify(data, null, 2)}</pre> 
+<!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 
 {#if classAttName != ''}
 	<h1>Attendance for <b>{classAttName}</b></h1>
@@ -90,14 +101,17 @@ const hoursToNextClass = (nextClassTime, time) => {
 	{#if data.user}
 		<main>
 			<reader id="reader"/>
+			<!--
 			{#if scanning}
 				<button on:click={stop}>stop</button>
 			{:else}
 				<button on:click={start}>start</button>
 			{/if}
+
+			-->
 		</main>
 
-		<form action="?/attendance" method="POST" use:enhance >
+		<form action="?/attendance" id="submitAttendance" method="POST" use:enhance >
 			<div>
 				<label for="student_number">student number</label>
 				<input bind:value={scanvalue} id="student_number" name="student_number" type="text" required />
@@ -111,15 +125,31 @@ const hoursToNextClass = (nextClassTime, time) => {
 		</form>	
 
 
-
+        
 
 
 	{/if}
 
 {/if}
 
+
+{#if form?.signInName}
+	<div id="overlay">
+		<div class="innerModal">
+			{form?.signInName}, class {form?.className} just signed {form?.InOrOut} 
+		</div>
+	</div>
+<script>
+	setTimeout(function(){
+	document.getElementById("overlay").style.display = "none";
+	location.reload();
+	},1500);
+</script>
+
+{/if}
+
 {#if classAttName === ''}
-Class attendance will start in ...
+Class attendance will start ...
 
 {NextClassIn}
 
@@ -145,5 +175,28 @@ Class attendance will start in ...
         min-height: 500px;
         background-color: black;
     }
+	#overlay{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2000px;
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.innerModal{
+		width:50%;
+		height:200px;
+		border: solid 1px #555;
+		background-color: #eee;
+		box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
+		-moz-box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
+		-webkit-box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
+		-o-box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
+		border-radius:10px;
+		margin: 200px auto;
+		padding: 20px;
+		color:#000;
+	}
 
 	</style>
