@@ -25,6 +25,7 @@ const register: Action = async ({ request }) => {
 	const fname = data.get('fname')
 	const surname = data.get('surname')
 	const student_number = data.get('student_number')
+	const student_year = data.get('student_year')
 	const avatar = data.get('avatar')
 
 	if (
@@ -53,6 +54,7 @@ const register: Action = async ({ request }) => {
 			fname,
 			surname,
 			student_number,
+			student_year,
             avatar,
 		},
 	})

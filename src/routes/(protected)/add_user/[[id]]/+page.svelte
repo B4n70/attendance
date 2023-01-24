@@ -1,0 +1,102 @@
+<script lang="ts">
+	import { enhance } from '$app/forms'
+    import type { ActionData, PageData } from '../$types';
+    import {page} from '$app/stores'
+
+	//export let data: PageData;
+    export let form: ActionData;
+    let pending = false;
+    $: pending = form?.pending ?? false;
+  
+	export let data: PageData
+
+</script>
+<!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
+
+<h1>Add User</h1>
+
+<form action="?/add_user" method="POST" enctype="multipart/form-data" use:enhance on:submit={() => (pending = true)}>
+
+{#if form?.user}
+<p class="error">User with student number/name is already registered.</p>
+{/if}
+	<div>
+		<label for="fname">First Name</label>
+		<input id="fname" name="fname" type="text" value="{data?.nUser?.fname ?? ''}" required />
+	</div>
+
+	<div>
+		<label for="surname">Surname</label>
+		<input id="surname" name="surname" type="text" value="{data?.nUser?.surname ?? ''}" required />
+	</div>
+	
+
+	<div>
+		<label for="student_number">student_number</label>
+		<input id="student_number" name="student_number" type="text" value="{data?.nUser?.student_number ?? ''}" required />
+	</div>
+	<div>
+		<label for="student_year">student year</label>
+		<select name="student_year" id="student_year" value="{data?.nUser?.student_year ?? ''}" required>
+			<option value="First Year">First Year</option>
+			<option value="Second Year">Second Year</option>
+			<option value="Third Year">Third Year</option>
+			<option value="Honours">Honours</option>
+		  </select>
+	</div>
+
+	<div class="container">
+
+		{#if pending}
+		<div class="bg-sky-100 px-3 py-2 text-emerald-900">Uploading</div>
+		{/if}
+		{#if form?.ok}
+		<div class="bg-emerald-100 px-3 py-2 text-emerald-900">Successfully uploaded</div>
+		<img src="/uploads/{form.filename}" width="200" alt="avatar" />
+		<input id="avatar" name="avatar" type="text" value="{form.filename}" /> <br />
+
+		{:else if form?.notok}
+		<div class="bg-rose-100 px-3 py-2 text-rose-900">Error with upload</div>
+		{/if}
+
+		{#if data?.nUser?.avatar}
+			<img src="/uploads/{data?.nUser?.avatar}" width="200" alt="avatar" />
+			<input id="avatar" name="avatar" type="text" value="{data?.nUser?.avatar}" /> <br />
+		{/if}
+
+		<input id="avatarFile" name="avatarFile" type="file" accept=".png,.jpg" />
+		<button formaction="?/upload_photo">Upload Photo</button>
+	</div>
+		
+	<button type="submit">Add</button>
+</form>
+
+
+<style>
+
+	select{
+		text-transform: none;
+		-webkit-appearance: button;
+		-moz-appearance: button;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-webkit-padding-end: 20px;
+		-moz-padding-end: 20px;
+		-webkit-padding-start: 2px;
+		-moz-padding-start: 2px;
+		background-color: grey;
+		background-position: center right;
+		background-repeat: no-repeat;
+		border: 1px solid #AAA;
+		border-radius: 10px;
+		box-shadow: 0px 1px 3px rgb(0 0 0 / 10%);
+		color: #555;
+		font-size: inherit;
+		margin: 0;
+		overflow: hidden;
+		padding: 9px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+</style>

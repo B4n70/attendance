@@ -75,28 +75,29 @@ const hoursToNextClass = (nextClassTime, time) => {
 	    };
 	
 	let today = new Date();
-	let theTime
+	let theTime = ''
 	let nextClassTime
-	let NextClassIn
+	let NextClassIn = ''
+	let tdate = ''
 
 	//setInterval(() => {
 		//redirect(303, '/attendance')
 	//}, 1000)
 	
+if(data?.nextClass[0]?.startTime){
 	theTime = today.toLocaleTimeString().substring(0, 5);
 	nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-	NextClassIn = hoursToNextClass(nextClassTime, theTime)
- 
+    NextClassIn = hoursToNextClass(nextClassTime, theTime)
+}
+  	tdate = new Date().toISOString().split('T')[0];
 
+ 
 </script>
 
-<!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
+ <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 
 {#if classAttName != ''}
-	<h1>Attendance for <b>{classAttName}</b></h1>
 
-	class times from {startTime} - class times from {endTime}
-	<br />
 
 	{#if data.user}
 		<main>
@@ -113,37 +114,73 @@ const hoursToNextClass = (nextClassTime, time) => {
 
 		<form action="?/attendance" id="submitAttendance" method="POST" use:enhance >
 			<div>
-				<label for="student_number">student number</label>
-				<input bind:value={scanvalue} id="student_number" name="student_number" type="text" required />
-				<input bind:value={classAttName} id="className" name="className" type="text" required />
+				<!-- <label for="student_number">student number</label> -->
+				<input bind:value={scanvalue} id="student_number" name="student_number" type="hidden" required />
+				<!-- <input bind:value={classAttName} id="className" name="className" type="text" required />
 				<input bind:value={startTime} id="startTime" name="startTime" type="text" required />
 				<input bind:value={endTime} id="endTime" name="endTime" type="text" required />
-
+				<button type="submit">Send</button>
+				 -->
 			</div>
 
-			<button type="submit">Send</button>
+			
 		</form>	
 
+		<h1>Attendance for <b>{classAttName}</b></h1>
 
-        
-
+		class times from {startTime} - class times from {endTime}
+		<br />
 
 	{/if}
 
 {/if}
 
 
-{#if form?.signInName}
+{#if form?.retUser}
 	<div id="overlay">
 		<div class="innerModal">
-			{form?.signInName}, class {form?.className} just signed {form?.InOrOut} 
+			<div class="width50">
+				<h2>User Details</h2>
+
+				<img src="/uploads/{form?.retUser.avatar}" width="80%" alt="avatar" /> <br />
+				Name: {form?.retUser.fname}  {form?.retUser.surname} <br />
+				Student Number: {form?.retUser.student_number}<br />
+				Student year: {form?.retUser.student_year} <br />
+		    </div> 	
+
+			<div class="width50">
+                <h3>Clock: {theTime} - {tdate} </h3> <br />
+				<h2>Class Details</h2>
+                <br />
+				{#each form?.className as cn, i}
+				    <hr />
+					Class: {cn} <br />
+					Signed: {form?.InOrOut[i]} <br />
+					{#if form?.InOrOut[i] == 'In'}
+					    {#if form?.InOrOut[i-1] == 'Out'}
+						Time: {endTime} <br />
+						{:else}
+						Time: {startTime} <br />
+						{/if}
+						Date: {tdate} <br />
+					{/if}
+					{#if form?.InOrOut[i] == 'Out'}
+						Time: {endTime} <br />
+						Date: {tdate} <br />
+					{/if}
+					<hr />
+				{/each}
+			</div> 	
+			<div class="clear"></div>
+            <div id="disclaimer">if the above dates and times are not correct, please report this to administration</div>
 		</div>
 	</div>
+
 <script>
 	setTimeout(function(){
 	document.getElementById("overlay").style.display = "none";
 	location.reload();
-	},1500);
+	},5000);
 </script>
 
 {/if}
@@ -161,8 +198,9 @@ Class attendance will start ...
 	</form>
 {/if}
 
-
 <style>
+	h2{font-size: 26px;
+		font-weight: 300;}
 	main {
 		display: flex;
 		flex-direction: column;
@@ -185,8 +223,8 @@ Class attendance will start ...
 	}
 
 	.innerModal{
-		width:50%;
-		height:200px;
+		width:80%;
+		min-height:300px;
 		border: solid 1px #555;
 		background-color: #eee;
 		box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
@@ -198,5 +236,15 @@ Class attendance will start ...
 		padding: 20px;
 		color:#000;
 	}
+	.width50{
+		width:47%;
+		float:left;
+		padding:1%;
+	}
+	hr{height:2px;border-width:0;color:gray;background-color:gray}
+    #disclaimer{
+		width:100%; text-align:center; color:red;font-style: italic; font-size:14px;
+	}
+	.clear{clear:both;height:1px;}
 
 	</style>

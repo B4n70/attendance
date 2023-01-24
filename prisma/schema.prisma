@@ -15,6 +15,7 @@ model User {
   fname          String
   surname        String
   student_number String   @unique
+  student_year   String
   avatar         String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -37,11 +38,15 @@ model Attendance {
   createdAt      DateTime @default(now())
 }
 
+
 model Classes {
   id          Int      @id @default(autoincrement())
   status      Boolean
   description String
   startTime   DateTime 
   endTime     DateTime 
+  startDate   DateTime
+  endDate     DateTime
+  repeating   String
   createdAt   DateTime @default(now())
 }

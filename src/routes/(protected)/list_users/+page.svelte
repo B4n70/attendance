@@ -16,7 +16,7 @@
 	<tr><th>Name</th><th>Surname</th><th>Student Number</th></tr>
 {#if data.listUsers}
 {#each data.listUsers as tUser}
-	<tr><td>{tUser.fname}</td><td>{tUser.surname}</td><td>{tUser.student_number}</td></tr>
+	<tr><td>{tUser.fname}</td><td>{tUser.surname}</td><td><a href="\profile\{tUser.student_number}">{tUser.student_number}</a></td><td><a href="\add_user\{tUser.student_number}">edit</a></td></tr>
 {/each}
 
 {/if}
