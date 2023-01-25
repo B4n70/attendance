@@ -45,5 +45,6 @@
 	<button type="submit">Log in</button>
 
 
-	working with {process.env.TEST_ENV_VAR}
+	working with {process.env.TEST_ENV_VAR} <br />
+	 and {process.env.SVELTE_APP_DATABASE_URL}
 </form>
