@@ -45,5 +45,5 @@
 	<button type="submit">Log in</button>
 
 
-	working with {process.env.DATABASE_URL}
+	working with {process.env.TEST_ENV_VAR}
 </form>
