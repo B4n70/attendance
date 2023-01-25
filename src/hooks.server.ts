@@ -1,6 +1,5 @@
-import { redirect, type Handle } from '@sveltejs/kit'
+import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/database'
-import { isValidHtml5QrcodeSupportedFormats } from 'html5-qrcode/esm/core'
 
 /*
 	You can use a custom redirect if you want...
@@ -29,21 +28,19 @@ import { isValidHtml5QrcodeSupportedFormats } from 'html5-qrcode/esm/core'
 export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
 	const session = event.cookies.get('session')
-    let url = new URL(event.request.url)
+
 	if (!session) {
-		if(url.pathname != '/login'){
-			throw redirect(301, '/login')
-		}
 		// if there is no session load page as normal
+		return await resolve(event)
 	}
 
+	// find the user based on the session
 	// find the user based on the session
 	const user = await db.user.findUnique({
 		where: { userAuthToken: session },
 		select: { username: true, role: true, name: true, surname: true, student_number: true },
 		select: { username: true, role: true, fname: true, surname: true, student_number: true}
 	})
-
 	// if `user` exists set `events.local`
 	if (user) {
 		event.locals.user = {
