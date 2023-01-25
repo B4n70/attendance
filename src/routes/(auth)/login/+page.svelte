@@ -2,9 +2,13 @@
 	import { applyAction, enhance } from '$app/forms'
 	import { invalidateAll } from '$app/navigation'
 	import type { ActionData } from './$types'
+    import {page} from '$app/stores'
 
 	export let form: ActionData
 </script>
+
+<pre>{JSON.stringify($page, null, 2)}</pre>
+
 
 <h1>Login</h1>
 
@@ -45,6 +49,5 @@
 	<button type="submit">Log in</button>
 
 
-	working with {process.env.TEST_ENV_VAR} <br />
-	 and {process.env.SVELTE_APP_DATABASE_URL}
+	
 </form>

@@ -16,7 +16,7 @@ enum Roles {
 export const load: PageServerLoad = async ({params, fetch, locals}) => {
 	// redirect user if logged in
 	if (!locals.user) {
-		throw redirect(302, '/')
+		throw redirect(302, '/login')
 	}
 
     let userStudent = params.id

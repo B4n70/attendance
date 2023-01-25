@@ -6,9 +6,9 @@ import { db } from '$lib/database'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect user if logged in
-	if (locals.user) {
-		throw redirect(302, '/')
-	}
+	//if (!locals.user) {
+	//	throw redirect(302, '/')
+	//}
 }
 
 const login: Action = async ({ cookies, request }) => {
@@ -47,6 +47,8 @@ const login: Action = async ({ cookies, request }) => {
 		data: { userAuthToken: crypto.randomUUID() },
 	})
 
+	console.dir(authenticatedUser)
+
 	cookies.set('session', authenticatedUser.userAuthToken, {
 		// send cookie for every page
 		path: '/',
@@ -54,16 +56,17 @@ const login: Action = async ({ cookies, request }) => {
 		httpOnly: true,
 		// only requests from same site can send cookies
 		// https://developer.mozilla.org/en-US/docs/Glossary/CSRF
-		sameSite: 'strict',
+		sameSite: 'lax',
 		// only sent over HTTPS in production
 		secure: process.env.NODE_ENV === 'production',
 		// set cookie to expire after a month
 		maxAge: 60 * 60 * 24 * 30,
 	})
-	console.log('5 logging in')
+	console.log('6 logging in')
 
 	// redirect the user
-	throw redirect(302, '/')
+	//throw redirect(302, '/')
+	return {ok:true}
 }
 
 export const actions: Actions = { login }
