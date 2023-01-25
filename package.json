@@ -16,11 +16,14 @@
 		"@types/bcrypt": "^5.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.46.1",
 		"@typescript-eslint/parser": "^5.46.1",
+		"autoprefixer": "^10.4.7",
 		"bcrypt": "^5.1.0",
 		"eslint": "^8.29.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"html5-qrcode": "^2.3.4",
+		"postcss": "^8.4.14",
+		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.1",
 		"prettier-plugin-svelte": "^2.9.0",
 		"prisma": "^4.7.1",
@@ -28,12 +31,12 @@
 		"svelte-check": "^2.10.2",
 		"svelte-preprocess": "^4.10.7",
 		"svelte-qrcode": "^1.0.0",
+		"tailwindcss": "^3.1.5",
 		"tslib": "^2.4.1",
 		"typescript": "~4.8.4",
-		"vite": "^4.0.1",
-		"postcss": "^8.4.14",
-		"postcss-load-config": "^4.0.1",
-		"autoprefixer": "^10.4.7",
-		"tailwindcss": "^3.1.5"
+		"vite": "^4.0.1"
+	},
+	"dependencies": {
+		"postgres": "^3.3.3"
 	}
 }

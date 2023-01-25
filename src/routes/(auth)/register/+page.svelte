@@ -17,12 +17,9 @@
 		<input id="password" name="password" type="password" required />
 	</div>
 
-
-
 	{#if form?.user}
 		<p class="error">Username is taken.</p>
 	{/if}
-
 
 	<div>
 		<label for="fname">First Name</label>
