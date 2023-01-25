@@ -14,13 +14,14 @@
 <nav>
 	{#if !$page.data.user}
 		<a href="/login">Login</a>
-		<a href="/register">Register</a>
+		<a href="/attendance">Attendance</a>
+
+		<!-- <a href="/register">Register</a> -->
 	{/if}
 
 	{#if $page.data.user}
 		<a href="/admin">Admin</a>
 		<a href="/profile">Profile</a>
-		<a href="/attendance">Attendance</a>
 		<a href="/view_attendance">View Attendance</a>
 		<a href="/class_times">Class Times</a>
 		<a href="/add_user">Add User</a>

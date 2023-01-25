@@ -18,7 +18,6 @@ function inRange(x, min, max) {
 }
 
 export const load: PageServerLoad = async ({ locals }) => {
-
 	const theTime = new Date()
 	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
 	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
@@ -28,10 +27,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 	nowTime = nowTime.split("T").pop();
 
 	// redirect user if not logged in
+	/*
 	if (!locals.user) {
 		throw redirect(302, '/')
 	}
-
+    */
 	const classes = await db.classes.findMany({
 		select: { description: true, startTime: true, endTime: true, startDate: true, endDate: true },
 		where: {

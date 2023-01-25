@@ -4,8 +4,6 @@
     import { onMount } from 'svelte'
 	import { enhance } from '$app/forms'
 
-
-
 	import type { ActionData, PageServerData } from './$types'
 	export let form: ActionData
 	export let data:PageServerData
@@ -95,11 +93,11 @@ if(data?.nextClass[0]?.startTime){
 </script>
 
  <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
-
+<!--
 {#if classAttName != ''}
 
 
-	{#if data.user}
+	{#if data.user}   -->
 		<main>
 			<reader id="reader"/>
 			<!--
@@ -130,12 +128,11 @@ if(data?.nextClass[0]?.startTime){
 
 		class times from {startTime} - class times from {endTime}
 		<br />
-
+<!-- 
 	{/if}
 
 {/if}
-
-
+-->
 {#if form?.retUser}
 	<div id="overlay">
 		<div class="innerModal">
@@ -192,11 +189,7 @@ Class attendance will start ...
 
 {/if}
 
-{#if data.user.role === 'ADMIN'}
-	<form action="/logout" method="POST">
-		<button type="submit">Log out</button>
-	</form>
-{/if}
+
 
 <style>
 	h2{font-size: 26px;
@@ -210,7 +203,7 @@ Class attendance will start ...
 	}
     reader {
         width: 100%;
-        min-height: 500px;
+        min-height: 100px;
         background-color: black;
     }
 	#overlay{
