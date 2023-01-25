@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = 'postgres://postgres:vxood8FD4DSe4SBS@db.bbcvgyibqdoiitnkitns.supabase.co:6543/postgres?pgbouncer=true'
+  url      = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
