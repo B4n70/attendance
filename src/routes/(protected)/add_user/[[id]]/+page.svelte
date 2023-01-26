@@ -38,7 +38,7 @@
 			var ctx = canvas.getContext("2d");
 			canvas.width = (img.width)*quality;
 			canvas.height = (img.height)*quality;
-			ctx.drawImage(img, 0, 0,canvas.width,canvas.height);
+			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 			var newImg = canvas.toDataURL("image/jpeg", quality);
 			resolve(newImg);
 		};
