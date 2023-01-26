@@ -60,7 +60,7 @@
 select{
 	text-transform: none;
     float: left;
-    diplay: block;
+    display: block;
     -webkit-appearance: button;
     -moz-appearance: button;
     -webkit-user-select: none;
