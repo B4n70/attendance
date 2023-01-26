@@ -18,7 +18,11 @@ function inRange(x, min, max) {
 }
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const theTime = new Date()
+	const d = new Date()
+	const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+	console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
+
+
 	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
 	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
 	earlyTime = earlyTime.split("T").pop();
@@ -26,6 +30,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 	let nowTime = theTime.toISOString()
 	nowTime = nowTime.split("T").pop();
 
+	console.log(earlyTime)
+	console.log(lateTime)
+	console.log(nowTime)
+
+
+
+	
 	// redirect user if not logged in
 	/*
 	if (!locals.user) {
@@ -66,7 +77,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
-		const theTime = new Date()
+		const d = new Date()
+	    const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 		let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
 		let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
 		earlyTime = earlyTime.split("T").pop();

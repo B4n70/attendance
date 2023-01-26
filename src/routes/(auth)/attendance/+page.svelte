@@ -88,11 +88,11 @@ if(data?.nextClass[0]?.startTime){
     NextClassIn = hoursToNextClass(nextClassTime, theTime)
 }
   	tdate = new Date().toISOString().split('T')[0];
-
+    
  
 </script>
 
- <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
+ <pre>{JSON.stringify(data, null, 2)}</pre>
 <!--
 {#if classAttName != ''}
 

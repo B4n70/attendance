@@ -19,12 +19,15 @@
 	<p>Student year: {data.nUser.student_year}</p>
 
 	<p>Student number: {data.nUser.student_number}</p>
-
-	<p>Photo: <img src="/uploads/{data.nUser.avatar}" width="400" alt="avatar" /> </p>
+    <div style="max-width:400px">
+		Photo: <img src="/uploads/{data.nUser.avatar}" width="100%" alt="avatar" />
+	</div>
 
 	<br />
-	<div class="container">
-		<QrCode value="{data.nUser.student_number}" /> 
-    </div>
+
+    <div style="max-width:400px">
+		<QrCode value="{data.nUser.student_number}  />
+	</div>
+
 {/if}
 
