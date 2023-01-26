@@ -12,7 +12,7 @@
 
 	let selectAvatarVal = ''
 	let avatarVal = '/uploads/avatar.png'
-
+/*
 	const convertBase64 = (file) => {
 		return new Promise((resolve, reject) => {
 			const fileReader = new FileReader();
@@ -25,10 +25,32 @@
 			};
 		});
 	};
+	*/
+
+	const convertBase64 = (file, quality) => {
+	return new Promise((resolve, reject) => {
+		const fileReader = new FileReader();
+		fileReader.readAsDataURL(file);
+		fileReader.onload = () => {
+			const img = new Image();
+			img.src = fileReader.result;
+			var canvas = document.createElement("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.width = (img.width)*quality;
+			canvas.height = (img.height)*quality;
+			ctx.drawImage(img, 0, 0,canvas.width,canvas.height);
+			var newImg = canvas.toDataURL("image/jpeg", quality);
+			resolve(newImg);
+		};
+		fileReader.onerror = (error) => {
+			reject(error);
+		};
+	});
+};
 	
 	const uploadImage = async (event) => {
 		const file = event.target.files[0];
-		const base64 = await convertBase64(file);
+		const base64 = await convertBase64(file, 0.3);
 		avatarVal = base64;
 	};
 
@@ -73,7 +95,7 @@
 <form action="?/add_user" method="POST" use:enhance on:submit={() => (pending = true)}>
 	<input class="form-control form-control-lg" id="selectAvatar" value="{selectAvatarVal}" type="file" on:change={(x) => uploadImage(x)}	/>
 	<img class="img" src="{avatarVal}" id="avatarImage" alt="avatar" />
-	<input id="avatar" name="avatar" type="hidden" value="{avatarVal}" />
+	<input id="avatar" name="avatar" type="text" value="{avatarVal}" />
 	
 	<div>
 		<label for="fname">First Name</label>
