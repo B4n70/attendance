@@ -19,8 +19,8 @@ let endTime = ''
 let classAttName = ''
 
 if (data.classes.length > 0){
-	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
-	endTime = data.classes[0].endTime.toISOString().split('T')[1].substring(0, 5)
+	startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
+	endTime = data.classes[0].endTime.toLocaleTimeString().substring(0, 5)
 	classAttName = data.classes[0].description
 }
 
@@ -57,7 +57,6 @@ function onScanSuccess(decodedText, decodedResult) {
 	setTimeout(function(){
 		document.getElementById("submitAttendance").submit();
 	},500);
-
 }
 
 function onScanFailure(error) {
@@ -75,7 +74,7 @@ const hoursToNextClass = (nextClassTime, time) => {
 	const d = new Date()
 	const today = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 	let theTime = ''
-	theTime = today.toISOString().split('T')[1].substring(0, 5)
+	theTime = today.toLocaleString().split(' ')[1].substring(0, 5)
 
 	let nextClassTime
 	let NextClassIn = ''
@@ -97,8 +96,6 @@ if(data?.nextClass[0]?.startTime){
  <pre>{JSON.stringify(data, null, 2)}</pre>
 <!--
 {#if classAttName != ''}
-
-
 	{#if data.user}   -->
 		<main>
 			<reader id="reader"/>
@@ -108,7 +105,6 @@ if(data?.nextClass[0]?.startTime){
 			{:else}
 				<button on:click={start}>start</button>
 			{/if}
-
 			-->
 		</main>
 
@@ -122,8 +118,7 @@ if(data?.nextClass[0]?.startTime){
 				<button type="submit">Send</button>
 				 -->
 			</div>
-
-			
+		
 		</form>	
 
 		<h1>Attendance for <b>{classAttName}</b></h1>
