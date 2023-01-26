@@ -19,9 +19,13 @@ let endTime = ''
 let classAttName = ''
 
 if (data.classes.length > 0){
-	startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
-	endTime = data.classes[0].endTime.toLocaleTimeString().substring(0, 5)
+	//startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
+	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
+	//endTime = data.classes[0].endTime.toLocaleTimeString().substring(0, 5)
+	endTime = data.classes[0].endTime.toISOString().split('T')[1].substring(0, 5)
+
 	classAttName = data.classes[0].description
+
 }
 
 onMount(init)
@@ -74,7 +78,7 @@ const hoursToNextClass = (nextClassTime, time) => {
 	const d = new Date()
 	const today = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 	let theTime = ''
-	theTime = today.toLocaleString().split(' ')[1].substring(0, 5)
+	theTime = today.toISOString().split('T')[1].substring(0, 5)
 
 	let nextClassTime
 	let NextClassIn = ''
@@ -85,7 +89,8 @@ const hoursToNextClass = (nextClassTime, time) => {
 	//}, 1000)
 
 if(data?.nextClass[0]?.startTime){
-	nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+	//nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+	nextClassTime = data.nextClass[0].startTime.toISOString().split('T')[1].substring(0, 5)
     NextClassIn = hoursToNextClass(nextClassTime, theTime)
 }
   	tdate = today.toISOString().split('T')[0];
@@ -136,7 +141,7 @@ if(data?.nextClass[0]?.startTime){
 			<div class="width50">
 				<h2>User Details</h2>
 
-				<img src="/uploads/{form?.retUser.avatar}" width="80%" alt="avatar" /> <br />
+				<img src="{form?.retUser.avatar}" width="80%" alt="avatar" /> <br />
 				Name: {form?.retUser.fname}  {form?.retUser.surname} <br />
 				Student Number: {form?.retUser.student_number}<br />
 				Student year: {form?.retUser.student_year} <br />
