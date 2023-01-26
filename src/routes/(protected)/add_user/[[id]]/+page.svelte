@@ -50,7 +50,7 @@
 	
 	const uploadImage = async (event) => {
 		const file = event.target.files[0];
-		const base64 = await convertBase64(file, 0.3);
+		const base64 = await convertBase64(file, 0.4);
 		avatarVal = base64;
 	};
 
