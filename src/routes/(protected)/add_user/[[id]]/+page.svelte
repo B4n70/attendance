@@ -15,11 +15,42 @@
 
 <h1>Add User</h1>
 
-<form action="?/add_user" method="POST" enctype="multipart/form-data" use:enhance on:submit={() => (pending = true)}>
 
 {#if form?.user}
 <p class="error">User with student number/name is already registered.</p>
 {/if}
+
+
+<div class="container">
+	<form method="POST" enctype="multipart/form-data" use:enhance on:submit={() => (pending = true)}>
+
+
+		{#if data?.nUser?.avatar}
+			<img src="/uploads/{data?.nUser?.avatar}" width="200" alt="avatar" />
+			<input id="avatar" name="avatar" type="text" value="{data?.nUser?.avatar}" /> <br />
+		{/if}
+
+		<input id="avatarFile" name="avatarFile" type="file" accept=".png,.jpg" />
+		<button formaction="?/upload_photo">Upload Photo</button>
+
+		{#if pending}
+		<div class="bg-sky-100 px-3 py-2 text-emerald-900">Uploading</div>
+		{/if}
+		{#if form?.ok}
+		<div class="bg-emerald-100 px-3 py-2 text-emerald-900">Successfully uploaded</div>
+		<img src="/uploads/{form.filename}" width="200" alt="avatar" />
+
+		{:else if form?.notok}
+		<div class="bg-rose-100 px-3 py-2 text-rose-900">Error with upload</div>
+		{/if}
+
+	</form>
+</div>
+
+<form action="?/add_user" method="POST" use:enhance on:submit={() => (pending = true)}>
+	{#if form?.ok}
+	<input id="avatar" name="avatar" type="hidden" value="{form.filename}" />
+	{/if}
 	<div>
 		<label for="fname">First Name</label>
 		<input id="fname" name="fname" type="text" value="{data?.nUser?.fname ?? ''}" required />
@@ -33,7 +64,7 @@
 
 	<div>
 		<label for="student_number">student_number</label>
-		<input id="student_number" name="student_number" type="text" value="{data?.nUser?.student_number ?? ''}" required />
+		<input id="student_number" name="student_number" type="number" value="{data?.nUser?.student_number ?? ''}" required />
 	</div>
 	<div>
 		<label for="student_year">student year</label>
@@ -45,28 +76,7 @@
 		  </select>
 	</div>
 
-	<div class="container">
 
-		{#if pending}
-		<div class="bg-sky-100 px-3 py-2 text-emerald-900">Uploading</div>
-		{/if}
-		{#if form?.ok}
-		<div class="bg-emerald-100 px-3 py-2 text-emerald-900">Successfully uploaded</div>
-		<img src="/uploads/{form.filename}" width="200" alt="avatar" />
-		<input id="avatar" name="avatar" type="text" value="{form.filename}" /> <br />
-
-		{:else if form?.notok}
-		<div class="bg-rose-100 px-3 py-2 text-rose-900">Error with upload</div>
-		{/if}
-
-		{#if data?.nUser?.avatar}
-			<img src="/uploads/{data?.nUser?.avatar}" width="200" alt="avatar" />
-			<input id="avatar" name="avatar" type="text" value="{data?.nUser?.avatar}" /> <br />
-		{/if}
-
-		<input id="avatarFile" name="avatarFile" type="file" accept=".png,.jpg" />
-		<button formaction="?/upload_photo">Upload Photo</button>
-	</div>
 		
 	<button type="submit">Add</button>
 </form>

@@ -63,7 +63,7 @@ const add_user: Action = async ({ request }) => {
 		},
 	})
 
-	throw redirect(303, '/')
+	throw redirect(303, '/profile/'+student_number)
 }
 
 

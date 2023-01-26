@@ -26,7 +26,7 @@
 	<br />
 
     <div style="max-width:400px">
-		<QrCode value="{data.nUser.student_number}  />
+		<QrCode value="{data.nUser.student_number}"  />
 	</div>
 
 {/if}

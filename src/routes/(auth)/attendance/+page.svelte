@@ -19,8 +19,8 @@ let endTime = ''
 let classAttName = ''
 
 if (data.classes.length > 0){
-	startTime = data.classes[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-	endTime = data.classes[0].endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
+	endTime = data.classes[0].endTime.toISOString().split('T')[1].substring(0, 5)
 	classAttName = data.classes[0].description
 }
 
@@ -51,7 +51,7 @@ async function stop() {
 
 
 function onScanSuccess(decodedText, decodedResult) {
-	//alert(`Code matched = ${decodedText}`)
+	alert(`Code matched = ${decodedText}`)
 	scanvalue = decodedText    
 
 	setTimeout(function(){
@@ -72,8 +72,11 @@ const hoursToNextClass = (nextClassTime, time) => {
 	        return relative.format(result, 'minutes');
 	    };
 	
-	let today = new Date();
+	const d = new Date()
+	const today = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 	let theTime = ''
+	theTime = today.toISOString().split('T')[1].substring(0, 5)
+
 	let nextClassTime
 	let NextClassIn = ''
 	let tdate = ''
@@ -81,18 +84,17 @@ const hoursToNextClass = (nextClassTime, time) => {
 	//setInterval(() => {
 		//redirect(303, '/attendance')
 	//}, 1000)
-	
+
 if(data?.nextClass[0]?.startTime){
-	theTime = today.toLocaleTimeString().substring(0, 5);
 	nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     NextClassIn = hoursToNextClass(nextClassTime, theTime)
 }
-  	tdate = new Date().toISOString().split('T')[0];
+  	tdate = today.toISOString().split('T')[0];
     
  
 </script>
 
- <pre>{JSON.stringify(data, null, 2)}</pre>
+<!--  <pre>{JSON.stringify(data, null, 2)}</pre>   --->
 <!--
 {#if classAttName != ''}
 
@@ -177,7 +179,7 @@ if(data?.nextClass[0]?.startTime){
 	setTimeout(function(){
 	document.getElementById("overlay").style.display = "none";
 	location.reload();
-	},5000);
+	},20000);
 </script>
 
 {/if}

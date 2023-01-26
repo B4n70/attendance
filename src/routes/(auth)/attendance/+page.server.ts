@@ -8,7 +8,7 @@ const millisecondsToDays = (x: number) => x / (1000 * 3600 * 24);
 const daysBetween = (x: Date, y: Date) => millisecondsToDays(getDiffInMilliseconds(x, y));
 //end get dates diff for calendar weekly/byweekly
 
-const timeAllowance = 10
+const timeAllowance = 20
 
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
@@ -20,7 +20,7 @@ function inRange(x, min, max) {
 export const load: PageServerLoad = async ({ locals }) => {
 	const d = new Date()
 	const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
-	console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
+	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
 
 
 	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
@@ -30,9 +30,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 	let nowTime = theTime.toISOString()
 	nowTime = nowTime.split("T").pop();
 
-	console.log(earlyTime)
-	console.log(lateTime)
-	console.log(nowTime)
+// 	console.log(earlyTime)
+//	console.log(lateTime)
+//	console.log(nowTime)
 
 
 
@@ -93,10 +93,10 @@ export const actions = {
 		let InOrOut = []
 		let className = []
 		let signInName
-		let testStart
-		let tmpETime
+		let classStartTime
+		let realTime
 		let calcStartMin
-		let testEnd
+		let classEndTime
 		let calcEndtMin
 
 		const getClass = await db.classes.findMany({
@@ -128,21 +128,21 @@ export const actions = {
             className[i] = 'No Class Found';
 
 			className[i] = getClass[i].description
-			testStart = new Date(getClass[i].startTime)
-			//console.log('1 '+testStart);
-			tmpETime = new Date('2001-01-01T'+nowTime)
-			//console.log('2 '+tmpETime);
-			calcStartMin = Math.abs((((tmpETime - testStart) % 86400000) % 3600000) / 60000)
+			classStartTime = new Date(getClass[i].startTime)
+			//console.log('1 '+classStartTime);
+			realTime = new Date('2001-01-01T'+nowTime)
+			//console.log('2 '+realTime);
+			calcStartMin = Math.abs((((realTime - classStartTime) % 86400000) % 3600000) / 60000)
 			//console.log('time diff start: ' +calcStartMin);
 
 			if (inRange(calcStartMin, -timeAllowance, timeAllowance)){InOrOut[i] = "In"}
 
-			testEnd = new Date(getClass[i].endTime)
-			//console.log(testEnd);
+			classEndTime = new Date(getClass[i].endTime)
+			//console.log(classEndTime);
 
-			//console.log('3 '+testEnd);
+			//console.log('3 '+classEndTime);
 
-			calcEndtMin = Math.abs((((tmpETime - testEnd) % 86400000) % 3600000) / 60000)
+			calcEndtMin = Math.abs((((realTime - classEndTime) % 86400000) % 3600000) / 60000)
 			//console.log('time diff end: ' +calcEndtMin);
 
 			if (inRange(calcEndtMin, -timeAllowance, timeAllowance)){
