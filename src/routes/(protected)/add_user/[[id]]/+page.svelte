@@ -10,6 +10,28 @@
   
 	export let data: PageData
 
+	let selectAvatarVal = ''
+	let avatarVal = '/uploads/avatar.png'
+
+	const convertBase64 = (file) => {
+		return new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(file);
+			fileReader.onload = () => {
+				resolve(fileReader.result);
+			};
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+		});
+	};
+	
+	const uploadImage = async (event) => {
+		const file = event.target.files[0];
+		const base64 = await convertBase64(file);
+		avatarVal = base64;
+	};
+
 </script>
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 
@@ -20,11 +42,12 @@
 <p class="error">User with student number/name is already registered.</p>
 {/if}
 
-
+<!--
 <div class="container">
+	
 	<form method="POST" enctype="multipart/form-data" use:enhance on:submit={() => (pending = true)}>
-
-
+		
+		
 		{#if data?.nUser?.avatar}
 			<img src="/uploads/{data?.nUser?.avatar}" width="200" alt="avatar" />
 			<input id="avatar" name="avatar" type="text" value="{data?.nUser?.avatar}" /> <br />
@@ -46,11 +69,12 @@
 
 	</form>
 </div>
-
+-->
 <form action="?/add_user" method="POST" use:enhance on:submit={() => (pending = true)}>
-	{#if form?.ok}
-	<input id="avatar" name="avatar" type="hidden" value="{form.filename}" />
-	{/if}
+	<input class="form-control form-control-lg" id="selectAvatar" value="{selectAvatarVal}" type="file" on:change={(x) => uploadImage(x)}	/>
+	<img class="img" src="{avatarVal}" id="avatarImage" alt="avatar" />
+	<input id="avatar" name="avatar" type="hidden" value="{avatarVal}" />
+	
 	<div>
 		<label for="fname">First Name</label>
 		<input id="fname" name="fname" type="text" value="{data?.nUser?.fname ?? ''}" required />

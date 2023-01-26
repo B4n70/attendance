@@ -93,7 +93,7 @@ if(data?.nextClass[0]?.startTime){
  
 </script>
 
- <pre>{JSON.stringify(data, null, 2)}</pre>
+  <pre>{JSON.stringify(data, null, 2)}</pre>  
 <!--
 {#if classAttName != ''}
 	{#if data.user}   -->
