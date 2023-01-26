@@ -1,6 +1,5 @@
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
-import { getNodeMajorVersion } from 'typescript'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
