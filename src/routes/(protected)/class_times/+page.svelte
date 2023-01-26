@@ -1,6 +1,8 @@
 <script>
-	export let data
+	import { time_ranges_to_array } from "svelte/internal"
 
+
+	export let data
 
 </script>
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre>-->
@@ -52,8 +54,8 @@
 {#each data.classes as tclass}
 	<tr>
 		<td>{tclass.description}</td>
-		<td>{tclass.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
-		<td>{tclass.endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+		<td>{tclass.startTime.toISOString().split('T')[1].substring(0,5)}</td>
+		<td>{tclass.endTime.toISOString().split('T')[1].substring(0,5)}</td>
 		<td>{tclass.repeating}</td>
 	</tr>
 {/each}
