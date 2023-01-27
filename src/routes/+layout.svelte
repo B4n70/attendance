@@ -45,15 +45,12 @@ function navClick() {
 		<a href="/logout">Logout</a>
 	{/if}
 
-	<div class="icon" on:keypress={() => navClick()}><i class="fa fa-bars"></i></div>
+	<div class="icon" on:keypress={() => navClick()}><i class="fa fa-bars">-></i></div>
 </nav>
 <br />
 <main>
 	<slot />
 </main>
-
-
-
 
 <style>
 
@@ -83,30 +80,12 @@ function navClick() {
 }
 
 .topnav .icon {
-  display: none;
+  display: block;
+  font-size:30px;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
 
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
 
 
 </style>

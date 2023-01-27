@@ -26,7 +26,7 @@
 		});
 	};
 	*/
-
+/*
 	const convertBase64 = (file, quality) => {
 	return new Promise((resolve, reject) => {
 		const fileReader = new FileReader();
@@ -57,10 +57,35 @@
 		};
 	});
 };
-	
+*/
+
+const img_onload = (img: HTMLImageElement, file: File, size: number) =>
+    new Promise((resolve) => {
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width * size;
+            canvas.height = img.height * size;
+            ctx?.drawImage(img, 0, 0, img.width * size, img.height * size);
+            resolve(canvas.toDataURL(file.type, size));
+        };
+    });
+const run_file_reader = (file: File, size: number) =>
+    new Promise((resolve) => {
+        const fr = new FileReader();
+        const img = new Image();
+        fr.onload = () => {
+            if (fr.result) {
+                img.src = fr.result as string;
+                img_onload(img, file, size).then(resolve);
+            }
+        };
+        fr.readAsDataURL(file);
+    });
+
 	const uploadImage = async (event) => {
 		const file = event.target.files[0];
-		const base64 = await convertBase64(file, 0.1);
+		const base64 = await run_file_reader(file, 0.5);
 		avatarVal = base64;
 	};
 
@@ -68,7 +93,6 @@
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 
 <h1>Add User</h1>
-
 
 {#if form?.user}
 <p class="error">User with student number/name is already registered.</p>

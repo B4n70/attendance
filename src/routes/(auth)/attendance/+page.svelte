@@ -28,7 +28,7 @@ if (data.classes.length > 0){
 
 }
 
-onMount(init)
+//onMount(init)
 
 function init() {
 	html5Qrcode = new Html5Qrcode('reader')
@@ -103,8 +103,8 @@ if(data?.nextClass[0]?.startTime){
 {#if classAttName != ''}
 	{#if data.user}   -->
 		<main>
-			<reader id="reader"/>
-			<!--
+			<!--<reader id="reader"/>
+			
 			{#if scanning}
 				<button on:click={stop}>stop</button>
 			{:else}
