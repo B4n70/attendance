@@ -22,7 +22,6 @@ function navClick() {
 	<title>CFCI Class Registration</title>
 </svelte:head>
 
-
 <nav class="topnav" id="myTopnav">
 	<a href="/" class="active">Home</a>
 
@@ -44,8 +43,24 @@ function navClick() {
 		<a href="/list_users">List Users</a>
 		<a href="/logout">Logout</a>
 	{/if}
-
+    
+	{#if $page.data.user}
 	<div class="icon" on:keypress={() => navClick()}><i class="fa fa-bars">-></i></div>
+
+	<form
+	class="logout"
+	action="/logout"
+	method="POST"
+	use:enhance={() => {
+		return async ({ result }) => {
+			invalidateAll()
+			await applyAction(result)
+		}
+	}}
+	>
+	<button type="submit">Log out</button>
+	</form>
+	{/if}
 </nav>
 <br />
 <main>
