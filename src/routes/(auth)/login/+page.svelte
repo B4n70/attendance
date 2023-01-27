@@ -7,7 +7,7 @@
 	export let form: ActionData
 </script>
 
-<pre>{JSON.stringify($page, null, 2)}</pre>
+<!-- <pre>{JSON.stringify($page, null, 2)}</pre> -->
 
 
 <h1>Login</h1>

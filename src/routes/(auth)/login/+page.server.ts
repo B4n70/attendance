@@ -6,13 +6,13 @@ import { db } from '$lib/database'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect user if logged in
-	//if (!locals.user) {
-	//	throw redirect(302, '/')
-	//}
+    if (locals.user) {
+		throw redirect(302, '/')
+	}
 }
 
 const login: Action = async ({ cookies, request }) => {
-	console.log('logging in')
+	//console.log('logging in')
 	const data = await request.formData()
 	const username = data.get('username')
 	const password = data.get('password')
@@ -25,21 +25,21 @@ const login: Action = async ({ cookies, request }) => {
 	) {
 		return fail(400, { fail: true })
 	}
-	console.log('2 logging in')
+	//console.log('2 logging in')
 
 	const user = await db.user.findUnique({ where: { username } })
 
 	if (!user) {
 		return fail(400, { credentials: true })
 	}
-	console.log('3 logging in '+user.username)
+	//console.log('3 logging in '+user.username)
 
 	const userPassword = await bcrypt.compare(password, user.passwordHash)
 
 	if (!userPassword) {
 		return fail(400, { credentials: true })
 	}
-	console.log('4 logging in')
+	//console.log('4 logging in')
 
 	// generate new auth token just in case
 	const authenticatedUser = await db.user.update({
@@ -47,7 +47,7 @@ const login: Action = async ({ cookies, request }) => {
 		data: { userAuthToken: crypto.randomUUID() },
 	})
 
-	console.dir(authenticatedUser)
+	//console.dir(authenticatedUser)
 
 	cookies.set('session', authenticatedUser.userAuthToken, {
 		// send cookie for every page
@@ -62,7 +62,7 @@ const login: Action = async ({ cookies, request }) => {
 		// set cookie to expire after a month
 		maxAge: 60 * 60 * 24 * 30,
 	})
-	console.log('6 logging in')
+	//console.log('6 logging in')
 
 	// redirect the user
 	//throw redirect(302, '/')

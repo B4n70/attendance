@@ -31,18 +31,28 @@
 	return new Promise((resolve, reject) => {
 		const fileReader = new FileReader();
 		fileReader.readAsDataURL(file);
-		fileReader.onload = () => {
+		fileReader.onloadend = () => {
 			const img = new Image();
 			img.src = fileReader.result;
+			console.log('starting  image')
 			var canvas = document.createElement("canvas");
 			var ctx = canvas.getContext("2d");
-			canvas.width = (img.width)*quality;
-			canvas.height = (img.height)*quality;
+
+			canvas.width = img.width;
+			canvas.height = img.height;
 			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+			ctx.scale(quality, quality);
+
+			//ctx.drawImage(img, 0, 0);
 			var newImg = canvas.toDataURL("image/jpeg", quality);
+			console.log('stopping  image')
+			//var newImg = img.src
+			//console.log(newImg)
 			resolve(newImg);
 		};
 		fileReader.onerror = (error) => {
+			console.dir('1 2 3, '+error)
+
 			reject(error);
 		};
 	});
@@ -50,7 +60,7 @@
 	
 	const uploadImage = async (event) => {
 		const file = event.target.files[0];
-		const base64 = await convertBase64(file, 0.4);
+		const base64 = await convertBase64(file, 0.1);
 		avatarVal = base64;
 	};
 
