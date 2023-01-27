@@ -6,101 +6,73 @@
 
 	import '../styles/app.css'
 
-function navClick() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-
-
 </script>
 
 <svelte:head>
 	<title>CFCI Class Registration</title>
 </svelte:head>
 
-<nav class="topnav" id="myTopnav">
-	<a href="/" class="active">Home</a>
+    <!-- Navigation bar -->
+    <header class="header">
+        <!-- Logo -->
+        <a href="#" class="logo">Class Register</a>
+        <!-- Hamburger icon -->
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <!-- Menu -->
+        <nav class="nav">
+            <ul class="menu">
+				{#if !$page.data.user}
+					<li><a href="/login">Login</a></li>
+					<li><a href="/attendance">Attendance</a></li>
+			
+					<!-- <a href="/register">Register</a> -->
+				{/if}
+			
+				{#if $page.data.user}
+					<li><a href="/admin">Admin</a></li>
+					<li><a href="/profile">Profile</a></li>
+					<li><a href="/attendance">Attendance</a></li>
+			
+					<li><a href="/view_attendance">View Attendance</a></li>
+					<li><a href="/class_times">Class Times</a></li>
+					<li><a href="/add_user">Add User</a></li>
+					<li><a href="/list_users">List Users</a></li>
+					<li>
+						<form
+							class="logout"
+							action="/logout"
+							method="POST"
+							use:enhance={() => {
+								return async ({ result }) => {
+									invalidateAll()
+									await applyAction(result)
+								}
+							}}
+							>
+							<button type="submit" style="padding:20px;">Log out</button>
+						</form>
+					</li>
+				{/if}
+            </ul>
+        </nav>
+    </header>
 
-	{#if !$page.data.user}
-		<a href="/login">Login</a>
-		<a href="/attendance">Attendance</a>
+<div class="topnav" id="myTopnav">
 
-		<!-- <a href="/register">Register</a> -->
-	{/if}
-
-	{#if $page.data.user}
-		<a href="/admin">Admin</a>
-		<a href="/profile">Profile</a>
-		<a href="/attendance">Attendance</a>
-
-		<a href="/view_attendance">View Attendance</a>
-		<a href="/class_times">Class Times</a>
-		<a href="/add_user">Add User</a>
-		<a href="/list_users">List Users</a>
-		<a href="/logout">Logout</a>
-	{/if}
     
 	{#if $page.data.user}
-	<div class="icon" on:keypress={() => navClick()}><i class="fa fa-bars">-></i></div>
 
-	<form
-	class="logout"
-	action="/logout"
-	method="POST"
-	use:enhance={() => {
-		return async ({ result }) => {
-			invalidateAll()
-			await applyAction(result)
-		}
-	}}
-	>
-	<button type="submit">Log out</button>
-	</form>
+
+	
 	{/if}
-</nav>
+</div>
 <br />
 <main>
 	<slot />
 </main>
 
 <style>
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #4cafe1;
-  color: white;
-}
-
-.topnav .icon {
-  display: block;
-  font-size:30px;
-  cursor: pointer;
-}
-
-
 
 
 </style>
