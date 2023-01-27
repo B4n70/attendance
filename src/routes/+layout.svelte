@@ -34,7 +34,7 @@
 				{/if}
 			
 				{#if $page.data.user}
-					<li><a href="/admin" on:click={toggle}4444444444444>Admin</a></li>
+					<li><a href="/admin" on:click={toggle}>Admin</a></li>
 					<li><a href="/profile" on:click={toggle}>Profile</a></li>
 					<li><a href="/attendance" on:click={toggle}>Attendance</a></li>
 			
