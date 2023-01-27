@@ -36,10 +36,10 @@
 				{#if $page.data.user}
 					<li><a href="/admin" on:click={toggle}>Admin</a></li>
 					<li><a href="/profile" on:click={toggle}>Profile</a></li>
-					<li><a href="/attendance" on:click={toggle}>Attendance</a></li>
+					<!-- <li><a href="/attendance" on:click={toggle}>Attendance</a></li> -->
 			
-					<li><a href="/view_attendance" on:click={toggle}>View Attendance</a></li>
-					<li><a href="/class_times" on:click={toggle}>Class Times</a></li>
+					<!-- <li><a href="/view_attendance" on:click={toggle}>View Attendance</a></li> -->
+					<!-- <li><a href="/class_times" on:click={toggle}>Class Times</a></li> -->
 					<li><a href="/add_user" on:click={toggle}>Add User</a></li>
 					<li><a href="/list_users" on:click={toggle}>List Users</a></li>
 					<li>
