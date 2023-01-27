@@ -5,7 +5,7 @@
 <h1>Admin</h1>
 
 {#if $page.data.user}
-	<p>Welcome {$page.data.user.name}!</p>
+	<p>Welcome {$page.data.user.fname}!</p>
 {/if}
 
 {#if $page.data.user.role === 'ADMIN'}

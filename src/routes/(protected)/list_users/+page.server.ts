@@ -9,7 +9,12 @@ export const load: PageServerLoad = async ({ locals, fetch }: LoadEvent) => {
 	}
 	//db.fetch
 	const listUsers = await db.user.findMany({
-		select: { student_number: true,  fname: true,  surname: true },
+		select: { student_number: true,  fname: true,  surname: true,  student_year: true },
+		where: {
+			roleId: {
+			  equals : 1,
+			},
+		  },
 	})
 
 	return { listUsers: Object.values(listUsers) }
