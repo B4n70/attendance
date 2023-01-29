@@ -64,8 +64,8 @@ const img_onload = (img: HTMLImageElement, file: File, size: number) =>
         img.onload = () => {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = img.width * size;
-            canvas.height = img.height * size;
+            canvas.width = img.width * size / 4;
+            canvas.height = img.height * size / 4;
             ctx?.drawImage(img, 0, 0, img.width * size, img.height * size);
             resolve(canvas.toDataURL(file.type, size));
         };
