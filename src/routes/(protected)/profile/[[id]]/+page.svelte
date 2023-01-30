@@ -16,6 +16,8 @@
 	<!-- <p>Profile {data.nUser.username}</p> --->
 	<p>First Name: {data.nUser.fname}</p>
 	<p>Surname: {data.nUser.surname}</p>
+	<p>Email Address: {data.nUser.email}</p>
+
 	<p>Student year: {data.nUser.student_year}</p>
 
 	<p>Student number: {data.nUser.student_number}</p>

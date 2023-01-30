@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -21,6 +21,7 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   roleId         Int
+  email          String?
   role           Roles    @relation(fields: [roleId], references: [id])
 }
 
@@ -35,17 +36,16 @@ model Attendance {
   student_number String
   className      String
   InOrOut        String
-  timeAttendance String 
+  timeAttendance String
   createdAt      DateTime @default(now())
 }
-
 
 model Classes {
   id          Int      @id @default(autoincrement())
   status      Boolean
   description String
-  startTime   DateTime 
-  endTime     DateTime 
+  startTime   DateTime
+  endTime     DateTime
   startDate   DateTime
   endDate     DateTime
   repeating   String

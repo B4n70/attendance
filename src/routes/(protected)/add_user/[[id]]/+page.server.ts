@@ -33,6 +33,7 @@ const add_user: Action = async ({ request }) => {
 
 	const fname = data.get('fname')
 	const surname = data.get('surname')
+	const email = data.get('email')
 	const student_number = data.get('student_number')
 	const student_year = data.get('student_year')
 	let avatar = data.get('avatar')
@@ -57,6 +58,7 @@ const add_user: Action = async ({ request }) => {
 			role: { connect: { name: Roles.USER } },
 			fname,
 			surname,
+			email,
 			student_number,
 			student_year,
             avatar,

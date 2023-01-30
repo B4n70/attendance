@@ -141,6 +141,10 @@ const run_file_reader = (file: File, size: number) =>
 		<input id="surname" name="surname" type="text" value="{data?.nUser?.surname ?? ''}" required />
 	</div>
 	
+	<div>
+		<label for="email">Email</label>
+		<input id="email" name="email" type="email" value="{data?.nUser?.email ?? ''}" required />
+	</div>
 
 	<div>
 		<label for="student_number">student_number</label>
