@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-	import { Html5Qrcode } from 'html5-qrcode'
-    import { onMount } from 'svelte'
+	//import { Html5Qrcode } from 'html5-qrcode'
+    //import { onMount } from 'svelte'
 	import { enhance } from '$app/forms'
 
 	import type { ActionData, PageServerData } from './$types'
