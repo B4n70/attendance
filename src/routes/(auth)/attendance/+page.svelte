@@ -29,7 +29,7 @@ if (data.classes.length > 0){
 }
 
 //onMount(init)
-
+/*
 function init() {
 	html5Qrcode = new Html5Qrcode('reader')
 	start()
@@ -66,7 +66,7 @@ function onScanSuccess(decodedText, decodedResult) {
 function onScanFailure(error) {
 	console.warn(`Code scan error = ${error}`)
 }
-
+*/
 const hoursToNextClass = (nextClassTime, time) => {
 	        var relative = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
 	        const nextClass = Date.parse(`2001-01-01T${nextClassTime}`);
