@@ -24,6 +24,7 @@
 {/if}
 </table>
 
+
 {#if $page.data.user.role === 'ADMIN'}
 	<form action="/logout" method="POST">
 		<button type="submit">Log out</button>

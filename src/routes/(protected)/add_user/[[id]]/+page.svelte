@@ -158,10 +158,7 @@ const run_file_reader = (file: File, size: number) =>
 			<option value="Third Year">Third Year</option>
 			<option value="Honours">Honours</option>
 		  </select>
-	</div>
-
-
-		
+	</div>		
 	<button type="submit">Add</button>
 </form>
 
