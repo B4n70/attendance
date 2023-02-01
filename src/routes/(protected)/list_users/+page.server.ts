@@ -58,7 +58,7 @@ export const actions = {
 			const msg = {
 			to: 'stevenjoubert@gmail.com', // Change to your recipient
 			from: 'stevenjoubert@gmail.com', // Change to your verified sender
-			subject: 'Sending with SendGrid is Fun',
+			subject: 'Sending with SendGrid',
 			
 			text: 'anworking!!!!!!! js',
 			//html: '<strong>anwith HTMLjs</strong>',
@@ -80,46 +80,8 @@ export const actions = {
 		const userStudentNo = Array.from(formdata.getAll('usersStudent'));
 		//const result = await Promise.allSettled(userStudentNo.map(fetchUsers)).then(sendMail);
 
-		//const result = await Promise.allSettled(userStudentNo.map(x => fetchUsers(x).then(sendMail)))
+		const result = await Promise.allSettled(userStudentNo.map(x => fetchUsers(x).then(sendMail)))
 
-		//console.log(userStudentNo)
-		//console.log(result)
 
-		//return userStudentNo
-		
-		//let useToEmail = await fetch(`/api/getUser/${userStudentNo}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
-        	
-		let emailhtml = ''
-		emailhtml = "<table>"
-		emailhtml += "	<tr><th>Name</th><th>Surname</th><th>Year</th><th>Student Number</th><th></th></tr>"
-		emailhtml += "	<tr><td>test1</td>"
-		emailhtml += "		<td>test2</td>"
-		emailhtml += "		<td>test3</td>"
-		emailhtml += "		<td>test4</td>"
-		emailhtml += "</table>"
-	
-		let emailStatus = ''
-		//return emailStatus
-		//let emailStatus
-		sgMail.setApiKey(env.SENDGRID_API_KEY)
-		const msg = {
-		to: 'stevenjoubert@gmail.com', // Change to your recipient
-		from: 'stevenjoubert@gmail.com', // Change to your verified sender
-		subject: 'Sending with SendGrid is Fun',
-		
-		text: 'anworking!!!!!!! js',
-		//html: '<strong>anwith HTMLjs</strong>',
-		html: emailhtml,
-	
-		}
-		sgMail
-		.send(msg)
-		.then(() => {
-			emailStatus = 'Email sent'
-			return emailStatus
-		})
-		.catch((error) => {
-			console.error('showing error: '+ error)
-		})
 	}
 }
