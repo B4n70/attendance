@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-	//import { Html5Qrcode } from 'html5-qrcode'
-    //import { onMount } from 'svelte'
+	import { Html5Qrcode } from 'html5-qrcode'
+    import { onMount } from 'svelte'
 	import { enhance } from '$app/forms'
 
 	import type { ActionData, PageServerData } from './$types'
@@ -17,10 +17,8 @@ let scanvalue
 let startTime = ''
 let endTime = ''
 let classAttName = ''
-let NextClassIn = ''
 
-/*
-if (data?.classes.length > 0){
+if (data.classes.length > 0){
 	//startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
 	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
 	//endTime = data.classes[0].endTime.toLocaleTimeString().substring(0, 5)
@@ -30,7 +28,7 @@ if (data?.classes.length > 0){
 
 }
 
-//onMount(init)
+onMount(init)
 
 function init() {
 	html5Qrcode = new Html5Qrcode('reader')
@@ -68,6 +66,7 @@ function onScanSuccess(decodedText, decodedResult) {
 function onScanFailure(error) {
 	console.warn(`Code scan error = ${error}`)
 }
+
 const hoursToNextClass = (nextClassTime, time) => {
 	        var relative = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
 	        const nextClass = Date.parse(`2001-01-01T${nextClassTime}`);
@@ -96,8 +95,7 @@ if(data?.nextClass[0]?.startTime){
 }
   	tdate = today.toISOString().split('T')[0];
     
- */
-
+ 
 </script>
 
   <pre>{JSON.stringify(data, null, 2)}</pre>  
@@ -105,8 +103,8 @@ if(data?.nextClass[0]?.startTime){
 {#if classAttName != ''}
 	{#if data.user}   -->
 		<main>
-			<!--<reader id="reader"/>
-			
+			<reader id="reader"/>
+			<!--
 			{#if scanning}
 				<button on:click={stop}>stop</button>
 			{:else}

@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	//const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 
 	const theTime = d;
-	console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
+	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
 
 
 	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleString()
@@ -75,7 +75,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	return { classes: Object.values(classes), nextClass: Object.values(nextClass) }
 }
-
+/*
 export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
@@ -209,3 +209,4 @@ export const actions = {
 
 	}
 }
+*/
