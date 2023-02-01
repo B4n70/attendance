@@ -17,7 +17,9 @@ let scanvalue
 let startTime = ''
 let endTime = ''
 let classAttName = ''
+let NextClassIn = ''
 
+/*
 if (data?.classes.length > 0){
 	//startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
 	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
@@ -29,7 +31,7 @@ if (data?.classes.length > 0){
 }
 
 //onMount(init)
-/*
+
 function init() {
 	html5Qrcode = new Html5Qrcode('reader')
 	start()
@@ -66,7 +68,6 @@ function onScanSuccess(decodedText, decodedResult) {
 function onScanFailure(error) {
 	console.warn(`Code scan error = ${error}`)
 }
-*/
 const hoursToNextClass = (nextClassTime, time) => {
 	        var relative = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
 	        const nextClass = Date.parse(`2001-01-01T${nextClassTime}`);
@@ -95,7 +96,8 @@ if(data?.nextClass[0]?.startTime){
 }
   	tdate = today.toISOString().split('T')[0];
     
- 
+ */
+
 </script>
 
   <pre>{JSON.stringify(data, null, 2)}</pre>  
