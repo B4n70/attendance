@@ -121,7 +121,5 @@ export const actions = {
 		.catch((error) => {
 			console.error('showing error: '+ error)
 		})
-
-
 	}
 }
