@@ -75,7 +75,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	return { classes: Object.values(classes), nextClass: Object.values(nextClass) }
 }
-/*
+
 export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
@@ -209,4 +209,3 @@ export const actions = {
 
 	}
 }
-*/
