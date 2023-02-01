@@ -18,7 +18,7 @@ let startTime = ''
 let endTime = ''
 let classAttName = ''
 
-if (data.classes.length > 0){
+if (data?.classes.length > 0){
 	//startTime = data.classes[0].startTime.toLocaleTimeString().substring(0, 5)
 	startTime = data.classes[0].startTime.toISOString().split('T')[1].substring(0, 5)
 	//endTime = data.classes[0].endTime.toLocaleTimeString().substring(0, 5)
