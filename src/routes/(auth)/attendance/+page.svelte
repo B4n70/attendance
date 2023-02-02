@@ -103,6 +103,7 @@ if(data?.nextClass[0]?.startTime){
 {#if classAttName != ''}
 	{#if data.user}   -->
 		<main>
+			
 			<reader id="reader"/>
 			<!--
 			{#if scanning}

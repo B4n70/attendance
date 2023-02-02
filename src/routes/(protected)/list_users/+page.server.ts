@@ -79,7 +79,5 @@ export const actions = {
 		//const result = await Promise.allSettled(userStudentNo.map(fetchUsers)).then(sendMail);
 
 		const result = await Promise.allSettled(userStudentNo.map(x => fetchUsers(x).then(sendMail)))
-
-
 	}
 }
