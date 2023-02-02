@@ -45,8 +45,6 @@ export const actions = {
 		
 			let emailStatus = ''
 			//console.log(emailhtml)
-			//return emailhtml
-			//let emailStatus
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
 			const msg = {
 			to: 'stevenjoubert@gmail.com', // Change to your recipient
