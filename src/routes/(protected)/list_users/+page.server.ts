@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private'
 import sgMail from '@sendgrid/mail'
 
 
+
 import type { Action, Actions, PageServerLoad, RequestEvent } from './$types'
 import { db } from '$lib/database'
 
@@ -34,6 +35,7 @@ export const actions = {
 
 		async function fetchUsers(item) {
 			let tUser = await fetch(`/api/getUser/${item}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+			
 			//console.log(tUser)
 			return tUser
 		}
@@ -41,18 +43,15 @@ export const actions = {
 		async function sendMail(bUser) {
 
 			console.log(bUser.fname)
-			
+
+		
 			let emailhtml = ''
-			emailhtml = "<table>"
-			emailhtml += "	<tr><th>Name</th><th>Surname</th><th>Year</th><th>Student Number</th><th></th></tr>"
-			emailhtml += "	<tr><td>"+bUser.fname+"</td>"
-			emailhtml += "		<td>"+bUser.surname+"</td>"
-			emailhtml += "		<td>"+bUser.student_year+"</td>"
-			emailhtml += "		<td>"+bUser.student_number+"</td>"
-			emailhtml += "</table>"
+
+			emailhtml = "<a href='https://class-attendance.vercel.app/profile/'"+bUser.student_number+">Link to student card</a>"
 		
 			let emailStatus = ''
-			//return emailStatus
+			console.log(emailhtml)
+			//return emailhtml
 			//let emailStatus
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
 			const msg = {
@@ -61,7 +60,6 @@ export const actions = {
 			subject: 'Sending with SendGrid',
 			
 			text: 'anworking!!!!!!! js',
-			//html: '<strong>anwith HTMLjs</strong>',
 			html: emailhtml,
 		
 			}
