@@ -44,14 +44,14 @@ export const actions = {
 			emailhtml = "<a href='https://class-attendance.vercel.app/profile/'"+bUser.student_number+">Link to student card</a>"
 		
 			let emailStatus = ''
-			console.log(emailhtml)
+			//console.log(emailhtml)
 			//return emailhtml
 			//let emailStatus
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
 			const msg = {
 			to: 'stevenjoubert@gmail.com', // Change to your recipient
 			from: 'steven.joubert@xpertek.co.za', // Change to your verified sender
-			subject: 'Sending with SendGrid',
+			subject: 'Student card for '+bUser.fname,
 			text: 'its working js',
 			html: emailhtml,
 		
