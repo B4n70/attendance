@@ -25,14 +25,18 @@ export const load: PageServerLoad = async ({ locals }) => {
 	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
 
 
-	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleString()
-	let lateTime = addMinutes(theTime, -timeAllowance).toLocaleString()
-	earlyTime = earlyTime.split(" ").pop()+'.000Z';
-	lateTime = lateTime.split(" ").pop()+'.000Z';
-	let nowTime = theTime.toLocaleString()
-	nowTime = nowTime.split(" ").pop()+'.000Z';
+	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString()
+	let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString()
 
-// 	console.log(earlyTime)
+	console.log('RESOLVING TIME ISSUE')
+
+	console.log(earlyTime)
+	earlyTime = earlyTime+'.000Z';
+	lateTime = lateTime+'.000Z';
+	let nowTime = theTime.toLocaleTimeString()
+	nowTime = nowTime+'.000Z';
+
+ 	//console.log(earlyTime)
 //	console.log(lateTime)
 //	console.log(nowTime)
 
@@ -83,12 +87,12 @@ export const actions = {
 	    //const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 		const theTime = d;
 
-		let earlyTime = addMinutes(theTime, timeAllowance).toLocaleString()
-		let lateTime = addMinutes(theTime, -timeAllowance).toLocaleString()
-		earlyTime = earlyTime.split(" ").pop()+'.000Z';
-		lateTime = lateTime.split(" ").pop()+'.000Z';
-		let nowTime = theTime.toLocaleString()
-		nowTime = nowTime.split(" ").pop()+'.000Z';
+		let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString()
+		let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString()
+		earlyTime = earlyTime+'.000Z';
+		lateTime = lateTime+'.000Z';
+		let nowTime = theTime.toLocaleTimeString()
+		nowTime = nowTime+'.000Z';
 
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
