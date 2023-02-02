@@ -19,24 +19,15 @@ function inRange(x, min, max) {
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const d = new Date()
-
-	//const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
-
 	const theTime = addMinutes(d, 120);
-	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
+	let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
+	let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()
+	let earlyTime = earlyTimeS.split("T").pop();
+	let lateTime = lateTimeS.split("T").pop();
+	let nowTimeS = theTime.toISOString()
+	let nowTime = nowTimeS.split("T").pop();
 
-	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
-	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
-
-	console.log('RESOLVING TIME ISSUE')
-
-	console.log(earlyTime)
-	earlyTime = earlyTime.split("T").pop();
-	lateTime = lateTime.split("T").pop();
-	let nowTime = theTime.toISOString()
-	nowTime = nowTime.split("T").pop();
-
- 	console.log(earlyTime)
+// 	console.log(earlyTime)
 //	console.log(lateTime)
 //	console.log(nowTime)
 
@@ -83,6 +74,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
+		const d = new Date()
+		const theTime = addMinutes(d, 120);
+		let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
+		let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()
+		let earlyTime = earlyTimeS.split("T").pop();
+		let lateTime = lateTimeS.split("T").pop();
+		let nowTimeS = theTime.toISOString()
+		let nowTime = nowTimeS.split("T").pop();
+
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
 		let timeAttendance = '0'
