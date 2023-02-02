@@ -19,6 +19,7 @@ function inRange(x, min, max) {
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const d = new Date()
+	//manual adding 2 hours to account for isotime at supabase
 	const theTime = addMinutes(d, 120);
 	let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
 	let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()

@@ -35,18 +35,12 @@ export const actions = {
 
 		async function fetchUsers(item) {
 			let tUser = await fetch(`/api/getUser/${item}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
-			
-			//console.log(tUser)
 			return tUser
 		}
 
 		async function sendMail(bUser) {
-
 			console.log(bUser.fname)
-
-		
 			let emailhtml = ''
-
 			emailhtml = "<a href='https://class-attendance.vercel.app/profile/'"+bUser.student_number+">Link to student card</a>"
 		
 			let emailStatus = ''
@@ -56,10 +50,9 @@ export const actions = {
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
 			const msg = {
 			to: 'stevenjoubert@gmail.com', // Change to your recipient
-			from: 'stevenjoubert@gmail.com', // Change to your verified sender
+			from: 'steven.joubert@xpertek.co.za', // Change to your verified sender
 			subject: 'Sending with SendGrid',
-			
-			text: 'anworking!!!!!!! js',
+			text: 'its working js',
 			html: emailhtml,
 		
 			}
