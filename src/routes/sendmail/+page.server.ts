@@ -8,10 +8,10 @@ export const load: PageServerLoad = async () => {
     const msg = {
     to: 'steven.joubert@xpertek.co.za', // Change to your recipient
     from: 'steven.joubert@xpertek.co.za', // Change to your verified sender
-    subject: 'Sending with SendGrid',
+    subject: 'Sending with SendGrid working',
     
     text: 'anworking!!!!!!! js',
-    html: "<a href='#'>link</a>",
+    html: "<a href='#'>link time now</a>",
 
     }
     await sgMail
