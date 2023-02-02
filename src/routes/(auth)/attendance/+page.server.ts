@@ -75,7 +75,7 @@ export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
 		const d = new Date()
-		const theTime = addMinutes(d, 120);
+		const theTime = addMinutes(d, 0);
 		let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
 		let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()
 		let earlyTime = earlyTimeS.split("T").pop();
