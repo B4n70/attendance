@@ -41,7 +41,7 @@ export const actions = {
 		async function sendMail(bUser) {
 			console.log(bUser.fname)
 			let emailhtml = ''
-			emailhtml = "<a href='https://class-attendance.vercel.app/profile/'"+bUser.student_number+">Link to student card</a>"
+			emailhtml = "Please find your student card for class attendance<br /><br /><a href='https://class-attendance.vercel.app/profile/"+bUser.student_number+"'>Link to student card</a>"
 		
 			let emailStatus = ''
 			//console.log(emailhtml)
