@@ -1,6 +1,13 @@
 import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/database'
 
+
+export const handleError: HandleServerError = ({ error }) => {
+		const { message } = error as Error;
+		return {
+			message,
+		};
+	};
 /*
 	You can use a custom redirect if you want...
 
