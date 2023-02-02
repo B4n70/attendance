@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PageData } from '../routes/(protected)/profile/[[id]]/$types';
+    import type { PageData } from '../routes/(auth)/profile/[[id]]/$types';
     import QrCode from "svelte-qrcode"
 
     import {page} from '$app/stores'
@@ -20,4 +20,3 @@
     <div style="max-width:400px">
 		<QrCode value="{user.student_number}"  />
 	</div>
-

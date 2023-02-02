@@ -29,12 +29,12 @@ const add_time: Action = async ({ request }) => {
 	const repeating = data.get('repeating')
 
 	//let startTime = new Date('01/01/2001 '+ sTime).toISOString()
-	let startTime = new Date('01/01/2001 '+ sTime).toISOString()
-	let endTime = new Date('01/01/2001 '+ eTime).toISOString()
+	let startTime = new Date('01/01/2001 '+ sTime)
+	let endTime = new Date('01/01/2001 '+ eTime)
     
 	//using 3am to compensate for 2hours of locale time, to get date to use 1am as time in date
-	let startDate = new Date(sDate+' 03:00').toISOString()
-	let endDate = new Date(eDate+' 03:00').toISOString()
+	let startDate = new Date(sDate+' 03:00')
+	let endDate = new Date(eDate+' 03:00')
 
 	await db.classes.create({
 		data: {

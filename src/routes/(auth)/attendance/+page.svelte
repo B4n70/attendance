@@ -89,8 +89,12 @@ const hoursToNextClass = (nextClassTime, time) => {
 	//}, 1000)
 
 if(data?.nextClass[0]?.startTime){
+	console.log('gettigng time right')
+	console.log(data?.nextClass[0]?.startTime)
 	//nextClassTime = data.nextClass[0].startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
 	nextClassTime = data.nextClass[0].startTime.toISOString().split('T')[1].substring(0, 5)
+	console.log(nextClassTime)
+
     NextClassIn = hoursToNextClass(nextClassTime, theTime)
 }
   	tdate = today.toISOString().split('T')[0];
