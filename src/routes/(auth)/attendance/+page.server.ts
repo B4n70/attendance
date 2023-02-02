@@ -25,17 +25,18 @@ export const load: PageServerLoad = async ({ locals }) => {
 	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
 
 
-	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
-	let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
+	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
+	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
+
 	console.log('RESOLVING TIME ISSUE')
 
 	console.log(earlyTime)
-	earlyTime = earlyTime+'.000Z';
-	lateTime = lateTime+'.000Z';
-	let nowTime = theTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
-	nowTime = nowTime+'.000Z';
+	earlyTime = earlyTime.split("T").pop();
+	lateTime = lateTime.split("T").pop();
+	let nowTime = theTime.toISOString()
+	nowTime = nowTime.split("T").pop();
 
- 	//console.log(earlyTime)
+ 	console.log(earlyTime)
 //	console.log(lateTime)
 //	console.log(nowTime)
 
@@ -86,12 +87,12 @@ export const actions = {
 	    //const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 		const theTime = d;
 
-		let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
-		let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
-		earlyTime = earlyTime+'.000Z';
-		lateTime = lateTime+'.000Z';
-		let nowTime = theTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'})
-		nowTime = nowTime+'.000Z';
+		let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
+		let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
+		earlyTime = earlyTime.split("T").pop();
+		lateTime = lateTime.split("T").pop();
+		let nowTime = theTime.toISOString();
+		nowTime = nowTime.split("T").pop();
 
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
