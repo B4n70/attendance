@@ -25,15 +25,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
 
 
-	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString()
-	let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString()
+	let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
+	let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
 
 	console.log('RESOLVING TIME ISSUE')
 
 	console.log(earlyTime)
 	earlyTime = earlyTime+'.000Z';
 	lateTime = lateTime+'.000Z';
-	let nowTime = theTime.toLocaleTimeString()
+	let nowTime = theTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
 	nowTime = nowTime+'.000Z';
 
  	//console.log(earlyTime)
@@ -87,11 +87,11 @@ export const actions = {
 	    //const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 		const theTime = d;
 
-		let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString()
-		let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString()
+		let earlyTime = addMinutes(theTime, timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
+		let lateTime = addMinutes(theTime, -timeAllowance).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
 		earlyTime = earlyTime+'.000Z';
 		lateTime = lateTime+'.000Z';
-		let nowTime = theTime.toLocaleTimeString()
+		let nowTime = theTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'}))
 		nowTime = nowTime+'.000Z';
 
 		let FormData = await request.formData()
