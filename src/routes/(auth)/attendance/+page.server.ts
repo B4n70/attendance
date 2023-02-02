@@ -19,11 +19,11 @@ function inRange(x, min, max) {
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const d = new Date()
+
 	//const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 
-	const theTime = d;
+	const theTime = addMinutes(d, 120);
 	//console.log(theTime.toISOString());       //  2018-07-21T22:00:00.000Z
-
 
 	let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
 	let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
@@ -83,17 +83,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
-		const d = new Date()
-	    //const theTime = new Date(d.getTime() - d.getTimezoneOffset()*60000);
-		const theTime = d;
-
-		let earlyTime = addMinutes(theTime, timeAllowance).toISOString()
-		let lateTime = addMinutes(theTime, -timeAllowance).toISOString()
-		earlyTime = earlyTime.split("T").pop();
-		lateTime = lateTime.split("T").pop();
-		let nowTime = theTime.toISOString();
-		nowTime = nowTime.split("T").pop();
-
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
 		let timeAttendance = '0'
