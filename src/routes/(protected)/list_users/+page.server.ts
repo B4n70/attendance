@@ -42,7 +42,8 @@ export const actions = {
 			console.log(bUser.fname)
 			let emailhtml = ''
 			emailhtml = "Please find your student card for class attendance<br /><br /><a href='https://class-attendance.vercel.app/profile/"+bUser.student_number+"'>Link to student card</a>"
-		
+			console.log(emailhtml)
+
 			let emailStatus = ''
 			//console.log(emailhtml)
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
