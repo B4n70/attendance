@@ -10,7 +10,6 @@ export const GET: RequestHandler = async ({ params }) => {
    let value = null
    try {
       value = await db.user.findUnique({
-         select: { username: true, role: true, fname: true, surname: true, email: true, student_number: true, student_year: true, avatar: true },
          where: {
             student_number: student_number,
          }
