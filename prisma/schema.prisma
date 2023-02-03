@@ -21,7 +21,7 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   roleId         Int
-  email          String?
+  email          String
   role           Roles    @relation(fields: [roleId], references: [id])
 }
 

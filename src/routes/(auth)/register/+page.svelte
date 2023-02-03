@@ -20,6 +20,7 @@
 	{#if form?.user}
 		<p class="error">Username is taken.</p>
 	{/if}
+	
 
 	<div>
 		<label for="fname">First Name</label>
@@ -44,6 +45,11 @@
 			<option value="Third Year">Third Year</option>
 			<option value="Honours">Honours</option>
 		  </select>
+	</div>
+
+	<div>
+		<label for="email">Email Address</label>
+		<input id="email" name="email" type="email" required />
 	</div>
 
 	<div>
