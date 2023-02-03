@@ -10,13 +10,14 @@
     let pending = false;
     $: pending = form?.pending ?? false;
 
-	let showUser = fetch(`/api/getUser/2021103374`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+	//let showUser = fetch(`/api/getUser/2021103374`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
     
 </script>
 
 <h1>All users</h1>
 
 	<!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
+	<!--
 	{#await showUser}
 	
 	{:then foo} 
@@ -27,6 +28,7 @@
 		</tr>
 		</table>
 	{/await}
+	-->
 
 <form action="?/send_user_email" method="POST" use:enhance on:submit={() => (pending = true)}>
 
