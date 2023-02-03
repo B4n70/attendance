@@ -34,7 +34,9 @@ export const actions = {
 	send_user_email: async ({ request, fetch }) => {
 
 		async function fetchUsers(item) {
-			let tUser = await fetch(`/api/getUser/${item}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+			let tUser = await fetch(`/api/getUser/${item}`, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json()).catch((error) => {
+				return error.message
+			})
 			return tUser
 		}
 
@@ -62,7 +64,7 @@ export const actions = {
 				return emailStatus
 			})
 			.catch((error) => {
-				console.error('showing error: '+ error)
+				console.error('showing error: '+ error.message)
 			})
 		}
 

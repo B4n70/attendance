@@ -5,7 +5,7 @@ import { db } from '$lib/database'
 
 export const GET: RequestHandler = async ({ params }) => {
    let { student_number } = params
-   //console.log(student_number)
+   console.log('123: '+student_number)
 
    let value = null
    try {
