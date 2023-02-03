@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
 import { db } from '$lib/database'
 
@@ -17,8 +17,9 @@ export const GET: RequestHandler = async ({ params }) => {
       })
       //console.log({user})
    } catch(e) {
-      console.log({e})
-      value = {}
+      //console.log({e})
+      //value = {}
+      throw error(500, e.message)
    }
 
    return json(value)
