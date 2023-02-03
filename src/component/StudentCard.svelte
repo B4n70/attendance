@@ -7,6 +7,9 @@
 
     
 </script>
+	<div style="max-width:400px">
+		<QrCode value="{user.student_number}"  />
+	</div><br />
 
 	<p>First Name: {user.fname}</p>
 	<p>Surname: {user.surname}</p>
@@ -17,6 +20,3 @@
 		Photo: <img src="{user.avatar}" width="100%" alt="avatar" />
 	</div>
 	<br />
-    <div style="max-width:400px">
-		<QrCode value="{user.student_number}"  />
-	</div>

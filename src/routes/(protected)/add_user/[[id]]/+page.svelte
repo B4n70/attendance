@@ -126,7 +126,9 @@ const run_file_reader = (file: File, size: number) =>
 	</form>
 </div>
 -->
-<form action="?/add_user" method="POST" use:enhance on:submit={() => (pending = true)}>
+<!-- <form action="{formPath}" method="POST" use:enhance on:submit={() => (pending = true)}> -->
+
+<form method="POST" use:enhance on:submit={() => (pending = true)}>
 	<input class="form-control form-control-lg" id="selectAvatar" value="{selectAvatarVal}" type="file" on:change={(x) => uploadImage(x)}	/>
 	<img class="img" src="{avatarVal}" id="avatarImage" alt="avatar" />
 	<input id="avatar" name="avatar" type="hidden" value="{avatarVal}" />
@@ -143,7 +145,7 @@ const run_file_reader = (file: File, size: number) =>
 	
 	<div>
 		<label for="email">Email</label>
-		<input id="email" name="email" type="email" value="{data?.nUser?.email ?? ''}" required />
+		<input id="email" name="email" type="email" value="{data?.nUser?.user_email ?? ''}" required />
 	</div>
 
 	<div>
@@ -158,8 +160,13 @@ const run_file_reader = (file: File, size: number) =>
 			<option value="Third Year">Third Year</option>
 			<option value="Honours">Honours</option>
 		  </select>
-	</div>		
-	<button type="submit">Add</button>
+	</div>	
+	{#if data.nUser}
+		<button formaction="?/update_user" type="submit">Update User</button>
+	{:else}
+		<button formaction="?/add_user" type="submit">Add User</button>
+	{/if}
+
 </form>
 
 

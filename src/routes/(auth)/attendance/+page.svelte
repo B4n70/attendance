@@ -99,7 +99,6 @@ if(data?.nextClass[0]?.startTime){
 }
   	tdate = today.toISOString().split('T')[0];
     
- 
 </script>
 
 <!--  <pre>{JSON.stringify(data, null, 2)}</pre>   -->

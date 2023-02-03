@@ -68,6 +68,47 @@ const add_user: Action = async ({ request }) => {
 	throw redirect(303, '/profile/'+student_number)
 }
 
+const update_user: Action = async ({ request }) => {
+	const data = await request.formData()
+	const fname = data.get('fname')
+	const surname = data.get('surname')
+	const email = data.get('email')
+	const student_number = data.get('student_number')
+	const student_year = data.get('student_year')
+	let avatar = data.get('avatar')
+	if (avatar == ''){avatar = 'avatar.png'}
+
+	const username = fname+'_'+surname+'_'+new Date().getTime()
+	const password = username
+
+	const user = await db.user.findUnique({
+		where: { student_number },
+	})
+
+	if (!user) {
+		return fail(400, { user: false })
+	}
+
+	await db.user.update({
+		where: {
+			student_number: student_number,
+		  },
+		data: {
+			username,
+			passwordHash: await bcrypt.hash(password, 10),
+			userAuthToken: crypto.randomUUID(),
+			role: { connect: { name: Roles.USER } },
+			fname,
+			surname,
+			user_email:email,
+			student_year,
+            avatar,
+		},
+	})
+
+	throw redirect(303, '/profile/'+student_number)
+}
+
 
 const upload_photo: Action = async ({ request }) => {
 	const formdata = await request.formData();
@@ -93,6 +134,4 @@ const upload_photo: Action = async ({ request }) => {
 	}
 }
 
-	
-
-export const actions: Actions = { add_user, upload_photo }
+export const actions: Actions = { add_user, update_user, upload_photo }

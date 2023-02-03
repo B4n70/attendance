@@ -24,6 +24,10 @@ label {
 	color: hsl(220 20% 80%);
 }
 
+h1{
+    font-size: 24px;
+}
+
 input,
 button {
 	padding: 1rem;
