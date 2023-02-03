@@ -76,17 +76,17 @@ export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
 		const d = new Date()
-		console.log(d)
-		const theTime = addMinutes(d, 0);
+		//console.log(d)
+		const theTime = addMinutes(d, 120);
 		let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
 		let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()
 		let earlyTime = earlyTimeS.split("T").pop();
 		let lateTime = lateTimeS.split("T").pop();
 		let nowTimeS = theTime.toISOString()
 		let nowTime = nowTimeS.split("T").pop();
-		console.log("earlyTime: "+earlyTime)
-		console.log("lateTime: "+lateTime)
-		console.log("nowTime: "+nowTime)
+		//console.log("earlyTime: "+earlyTime)
+		//console.log("lateTime: "+lateTime)
+		//console.log("nowTime: "+nowTime)
 
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
@@ -122,11 +122,10 @@ export const actions = {
 		})
 		console.log("getClass: "+getClass.length)
 
-
 		//write default none to db
         if (getClass.length == 0){
 			retUser = await fetch("/api/getUser/"+student_number, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
-			console.log(retUser.fname +' '+retUser.surname)
+			//console.log(retUser.fname +' '+retUser.surname)
             nClassName[0] = 'No Class can be signed in or out of at this time'
             nInOrOut[0] = 'No'
 			let resp = await db.attendance.create({
@@ -159,22 +158,22 @@ export const actions = {
 			}
 			
 			classStartTime = new Date(getClass[i].startTime)
-			console.log('1 '+classStartTime);
+			//console.log('1 '+classStartTime);
 			realTime = new Date('2001-01-01T'+nowTime)
-			console.log('2 '+realTime);
+			//console.log('2 '+realTime);
 			calcStartMin = Math.abs((((realTime - classStartTime) % 86400000) % 3600000) / 60000)
-			console.log('time diff start: ' +calcStartMin);
+			//console.log('time diff start: ' +calcStartMin);
             
 			if (InOrOut[i] != 'No'){
 				if (inRange(calcStartMin, -timeAllowance, timeAllowance)){InOrOut[i] = "In"}
 			}
 			classEndTime = new Date(getClass[i].endTime)
-			console.log(classEndTime);
+			//console.log(classEndTime);
 
-			console.log('3 '+classEndTime);
+			//console.log('3 '+classEndTime);
 
 			calcEndtMin = Math.abs((((realTime - classEndTime) % 86400000) % 3600000) / 60000)
-			console.log('time diff end: ' +calcEndtMin);
+			//console.log('time diff end: ' +calcEndtMin);
 			if (InOrOut[i] != 'No'){
 
 				if (inRange(calcEndtMin, -timeAllowance, timeAllowance)){
@@ -200,8 +199,8 @@ export const actions = {
 					if (InOrOutSearch.length >= 1){InOrOut[i] = 'Out'}
 				}
 			}
-			console.log('now the in or out...')
-			console.log(InOrOut)
+			//console.log('now the in or out...')
+			//console.log(InOrOut)
 			//end sign in check
 	        timeAttendance = tdate
 			if (InOrOut[i] =='In'){
@@ -209,7 +208,7 @@ export const actions = {
 			}else if(InOrOut[i] =='Out'){
 				timeAttendance = getClass[i].endTime.toISOString()
 			}
-			console.log('InOrOut 2 '+ InOrOut)
+			//console.log('InOrOut 2 '+ InOrOut)
  
 	
 	
@@ -218,7 +217,7 @@ export const actions = {
 			if (retUser !== null) {
 				signInName = (retUser.fname +' '+retUser.surname)
 			}
-			console.log('signInName '+ signInName)
+			//console.log('signInName '+ signInName)
 
 
 
@@ -232,8 +231,6 @@ export const actions = {
 			}).then(console.log).catch(console.error)
 	
 		}
-
-    
 		return {retUser, className, InOrOut}
 		//fail(400, {error: 'Name too long'})
 	}
