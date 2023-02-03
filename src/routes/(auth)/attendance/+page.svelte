@@ -102,7 +102,7 @@ if(data?.nextClass[0]?.startTime){
  
 </script>
 
- <pre>{JSON.stringify(data, null, 2)}</pre>  
+<!--  <pre>{JSON.stringify(data, null, 2)}</pre>  -->
 <!--
 {#if classAttName != ''}
 	{#if data.user}   -->
@@ -144,14 +144,11 @@ if(data?.nextClass[0]?.startTime){
 	<div id="overlay">
 		<div class="innerModal">
 			<div class="width50">
-				<h2>User Details</h2>
-
+				<h2>User Details for {form?.retUser.fname}  {form?.retUser.surname}</h2>
 				<img src="{form?.retUser.avatar}" width="80%" alt="avatar" /> <br />
-				Name: {form?.retUser.fname}  {form?.retUser.surname} <br />
 				Student Number: {form?.retUser.student_number}<br />
 				Student year: {form?.retUser.student_year} <br />
 		    </div> 	
-
 			<div class="width50">
                 <h3>Clock: {theTime} - {tdate} </h3> <br />
 				<h2>Class Details</h2>
@@ -184,7 +181,7 @@ if(data?.nextClass[0]?.startTime){
 	setTimeout(function(){
 	document.getElementById("overlay").style.display = "none";
 	location.reload();
-	},20000);
+	},4000);
 </script>
 
 {/if}
