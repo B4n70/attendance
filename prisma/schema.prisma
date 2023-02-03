@@ -38,7 +38,7 @@ model Attendance {
   student_number String
   className      String
   InOrOut        String
-  timeAttendance String
+  timeAttendance DateTime
   createdAt      DateTime @default(now())
 }
 
