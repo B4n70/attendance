@@ -76,6 +76,7 @@ export const actions = {
 	attendance: async ({request, fetch}) => {
 		//decare vars and times
 		const d = new Date()
+		console.log(d)
 		const theTime = addMinutes(d, 0);
 		let earlyTimeS = addMinutes(theTime, timeAllowance).toISOString()
 		let lateTimeS = addMinutes(theTime, -timeAllowance).toISOString()
@@ -83,14 +84,22 @@ export const actions = {
 		let lateTime = lateTimeS.split("T").pop();
 		let nowTimeS = theTime.toISOString()
 		let nowTime = nowTimeS.split("T").pop();
+		console.log("earlyTime: "+earlyTime)
+		console.log("lateTime: "+lateTime)
+		console.log("nowTime: "+nowTime)
 
 		let FormData = await request.formData()
 		let student_number = FormData.get('student_number')
+		//console.log("student_number: "+student_number)
 	    if (!student_number){return 'No Student Number found'}
+		//console.log("student_number again: "+student_number)
+
 		let timeAttendance = ''
 		let retUser
 		let InOrOut = []
 		let className = []
+		let nInOrOut = []
+		let nClassName = []
 		let signInName
 		let classStartTime
 		let realTime
@@ -111,9 +120,30 @@ export const actions = {
 				  },
 			  },	  
 		})
+		console.log("getClass: "+getClass.length)
+
+
+		//write default none to db
+        if (getClass.length == 0){
+			retUser = await fetch("/api/getUser/"+student_number, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
+			console.log(retUser.fname +' '+retUser.surname)
+            nClassName[0] = 'No Class can be signed in or out of at this time'
+            nInOrOut[0] = 'No'
+			let resp = await db.attendance.create({
+				data: {
+					student_number,
+					className:nClassName[0],
+					InOrOut:nInOrOut[0],
+					timeAttendance:theTime.toISOString()
+				},
+			}).then(console.log).catch(console.error)
+			
+			return {retUser, nClassName, nInOrOut}
+		}
+		//end write default none to db
 
 		for (let i = 0; i < getClass.length; i++) {
-
+          
             let tdate = new Date().toISOString()
 			//class times days start at 03:00
 			let today = new Date(tdate.split('T')[0]+'T03:03:00.000Z')
@@ -129,22 +159,22 @@ export const actions = {
 			}
 			
 			classStartTime = new Date(getClass[i].startTime)
-			//console.log('1 '+classStartTime);
+			console.log('1 '+classStartTime);
 			realTime = new Date('2001-01-01T'+nowTime)
-			//console.log('2 '+realTime);
+			console.log('2 '+realTime);
 			calcStartMin = Math.abs((((realTime - classStartTime) % 86400000) % 3600000) / 60000)
-			//console.log('time diff start: ' +calcStartMin);
+			console.log('time diff start: ' +calcStartMin);
             
 			if (InOrOut[i] != 'No'){
 				if (inRange(calcStartMin, -timeAllowance, timeAllowance)){InOrOut[i] = "In"}
 			}
 			classEndTime = new Date(getClass[i].endTime)
-			//console.log(classEndTime);
+			console.log(classEndTime);
 
-			//console.log('3 '+classEndTime);
+			console.log('3 '+classEndTime);
 
 			calcEndtMin = Math.abs((((realTime - classEndTime) % 86400000) % 3600000) / 60000)
-			//console.log('time diff end: ' +calcEndtMin);
+			console.log('time diff end: ' +calcEndtMin);
 			if (InOrOut[i] != 'No'){
 
 				if (inRange(calcEndtMin, -timeAllowance, timeAllowance)){
@@ -170,17 +200,17 @@ export const actions = {
 					if (InOrOutSearch.length >= 1){InOrOut[i] = 'Out'}
 				}
 			}
-			//console.log('now the in or out...')
-			//console.log(InOrOut)
+			console.log('now the in or out...')
+			console.log(InOrOut)
 			//end sign in check
 	        timeAttendance = tdate
 			if (InOrOut[i] =='In'){
 				timeAttendance = getClass[i].startTime.toISOString()
 			}else if(InOrOut[i] =='Out'){
 				timeAttendance = getClass[i].endTime.toISOString()
-            
 			}
-			 
+			console.log('InOrOut 2 '+ InOrOut)
+ 
 	
 	
 			retUser = await fetch("/api/getUser/"+student_number, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
@@ -188,6 +218,9 @@ export const actions = {
 			if (retUser !== null) {
 				signInName = (retUser.fname +' '+retUser.surname)
 			}
+			console.log('signInName '+ signInName)
+
+
 
 			let resp = await db.attendance.create({
 				data: {
