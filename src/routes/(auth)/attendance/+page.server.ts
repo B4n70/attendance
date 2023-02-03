@@ -139,7 +139,7 @@ export const actions = {
 			
 			return {retUser, nClassName, nInOrOut}
 		}
-		//end write default none to db
+		//end write default none to db need to get this to compile
 
 		for (let i = 0; i < getClass.length; i++) {
           
