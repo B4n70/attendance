@@ -66,7 +66,7 @@ const img_onload = (img: HTMLImageElement, file: File, size: number) =>
             const ctx = canvas.getContext('2d');
             canvas.width = img.width * size / 4;
             canvas.height = img.height * size / 4;
-            ctx?.drawImage(img, 0, 0, img.width * size, img.height * size);
+            ctx?.drawImage(img, 0, 0, img.width * size / 4, img.height * size / 4);
             resolve(canvas.toDataURL(file.type, size));
         };
     });
