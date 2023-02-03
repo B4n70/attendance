@@ -10,7 +10,7 @@
 
 	<p>First Name: {user.fname}</p>
 	<p>Surname: {user.surname}</p>
-	<p>Email Address: {user.email}</p>
+	<p>Email Address: {user.user_email}</p>
 	<p>Student year: {user.student_year}</p>
 	<p>Student number: {user.student_number}</p>
     <div style="max-width:400px">

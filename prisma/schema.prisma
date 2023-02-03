@@ -23,6 +23,7 @@ model User {
   roleId         Int
   email          String?
   user_email     String?
+  new_email      String?
   role           Roles    @relation(fields: [roleId], references: [id])
 }
 

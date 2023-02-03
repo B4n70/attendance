@@ -27,7 +27,8 @@ const register: Action = async ({ request }) => {
 	const student_number = data.get('student_number')
 	const student_year = data.get('student_year')
 	const email = data.get('email')
-
+	console.log('email')
+	console.log(email)
 	const avatar = data.get('avatar')
 
 	if (
@@ -47,19 +48,23 @@ const register: Action = async ({ request }) => {
 		return fail(400, { user: true })
 	}
 
+	let datasend = {
+		username,
+		passwordHash: await bcrypt.hash(password, 10),
+		userAuthToken: crypto.randomUUID(),
+		role: { connect: { name: Roles.USER } },
+		fname,
+		surname,
+		student_number,
+		student_year,
+		user_email:email,
+		avatar,
+	}
+
+	console.log(datasend)
+
 	await db.user.create({
-		data: {
-			username,
-			passwordHash: await bcrypt.hash(password, 10),
-			userAuthToken: crypto.randomUUID(),
-			role: { connect: { name: Roles.USER } },
-			fname,
-			surname,
-			student_number,
-			student_year,
-			user_email:email,
-            avatar,
-		},
+		data: datasend
 	})
 
 	throw redirect(303, '/login')
