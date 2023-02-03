@@ -57,7 +57,7 @@ const register: Action = async ({ request }) => {
 			surname,
 			student_number,
 			student_year,
-			email,
+			user_email:email,
             avatar,
 		},
 	})
