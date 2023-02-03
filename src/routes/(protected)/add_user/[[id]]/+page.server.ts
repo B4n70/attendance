@@ -58,7 +58,7 @@ const add_user: Action = async ({ request }) => {
 			role: { connect: { name: Roles.USER } },
 			fname,
 			surname,
-			email,
+			user_email:email,
 			student_number,
 			student_year,
             avatar,

@@ -50,7 +50,7 @@ export const actions = {
 			//console.log(emailhtml)
 			sgMail.setApiKey(env.SENDGRID_API_KEY)
 			const msg = {
-			to: 'stevenjoubert@gmail.com', // Change to your recipient
+			to: bUser.user_email, // Change to your recipient
 			from: 'stevenjoubert@gmail.com', // Change to your verified sender
 			subject: 'Student card for '+bUser.fname,
 			text: 'its working js',
