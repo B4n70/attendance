@@ -6,74 +6,77 @@
 
 </script>
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre>-->
-<div class="board">
+<div class="container">
+	<div class="row">
+		<div class="col-sm">
+			<form action="?/add_time" method="POST" use:enhance class="sform">
+				<div class="inlineForm">
+					<label for="description">Description</label>
+					<input id="description" name="description" type="text" required />
+				</div>
 
+				<div class="inlineForm">
+					<label for="startTime">Start Time</label>
+					<input id="startTime" name="startTime" type="time" required />
+				</div>
+
+				<div class="inlineForm">
+					<label for="endTime">End Time</label>
+					<input id="endTime" name="endTime" type="time" required />
+				</div>
+
+				<div class="inlineForm">
+					<label for="startDate">Start Date</label>
+					<input id="startDate" name="startDate" type="date" required />
+				</div>
+				<div class="inlineForm">
+					<label for="endDate">End Date</label>
+					<input id="endDate" name="endDate" type="date" required />
+				</div>
+
+				<div>
+					<label for="repeating">repeating</label>
+					<select name="repeating" id="repeating" required>
+						<!-- <option value="none">none</option> -->
+						<option value="daily">Daily</option>
+						<option value="weekly">Weekly</option>
+						<option value="biweekly">BiWeekly</option>
+						<!-- <option value="monthly">monthly</option>  -->
+					</select>
+				</div>
+				<button type="submit">Add Class Time</button>
+			</form>
+		</div>
+
+		<div class="col-sm">
+			<table>
+				<tr><th>Class</th><th>Start Time</th><th>End Time</th><th>Repeating</th></tr>
+			{#if data.user}
+			{#each data.classes as tclass}
+				<tr>
+					<td>{tclass.description}</td>
+					<td>{tclass.startTime.toISOString().split('T')[1].substring(0,5)}</td>
+					<td>{tclass.endTime.toISOString().split('T')[1].substring(0,5)}</td>
+					<td>{tclass.repeating}</td>
+				</tr>
+			{/each}
+			
+			{/if}
+			</table>
+		</div>
+	</div>
 </div>
-
-<form action="?/add_time" method="POST" use:enhance class="sform">
-	<div class="inlineForm">
-		<label for="description">Description</label>
-		<input id="description" name="description" type="text" required />
-	</div>
-
-	<div class="inlineForm">
-		<label for="startTime">Start Time</label>
-		<input id="startTime" name="startTime" type="time" required />
-	</div>
-
-	<div class="inlineForm">
-		<label for="endTime">End Time</label>
-		<input id="endTime" name="endTime" type="time" required />
-	</div>
-
-	<div class="inlineForm">
-		<label for="startDate">Start Date</label>
-		<input id="startDate" name="startDate" type="date" required />
-	</div>
-	<div class="inlineForm">
-		<label for="endDate">End Date</label>
-		<input id="endDate" name="endDate" type="date" required />
-    </div>
-
-	<div>
-		<label for="repeating">repeating</label>
-		<select name="repeating" id="repeating" required>
-			<!-- <option value="none">none</option> -->
-			<option value="daily">Daily</option>
-			<option value="weekly">Weekly</option>
-			<option value="biweekly">BiWeekly</option>
-			<!-- <option value="monthly">monthly</option>  -->
-		  </select>
-	</div>
-	<button type="submit">Add Class Time</button>
-</form>
-
-<table>
-	<tr><th>Class</th><th>Start Time</th><th>End Time</th><th>Repeating</th></tr>
-{#if data.user}
-{#each data.classes as tclass}
-	<tr>
-		<td>{tclass.description}</td>
-		<td>{tclass.startTime.toISOString().split('T')[1].substring(0,5)}</td>
-		<td>{tclass.endTime.toISOString().split('T')[1].substring(0,5)}</td>
-		<td>{tclass.repeating}</td>
-	</tr>
-{/each}
-
-{/if}
-</table>
-
 
 <style>
 	.sform{
 		width: 100%
 	}
+
 	.inlineForm {
 		float: left;
 		width: 30%;
 
 	}
-
 
 	select{
 	text-transform: none;

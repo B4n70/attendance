@@ -120,9 +120,9 @@ if(data?.nextClass[0]?.startTime){
 		<form action="?/attendance" id="submitAttendance" method="POST" use:enhance >
 			<div>
 				<!-- <label for="student_number">student number</label> -->
-				<input bind:value={scanvalue} id="student_number" name="student_number" type="text" required />
-				<button type="submit">Send</button>
-				<!-- <input bind:value={classAttName} id="className" name="className" type="text" required />
+				<input bind:value={scanvalue} id="student_number" name="student_number" type="hidden" required />
+				<!-- <button type="submit">Send</button>
+				<input bind:value={classAttName} id="className" name="className" type="text" required />
 				<input bind:value={startTime} id="startTime" name="startTime" type="text" required />
 				<input bind:value={endTime} id="endTime" name="endTime" type="text" required />
 				 -->
