@@ -56,9 +56,7 @@ async function stop() {
 
 function onScanSuccess(decodedText, decodedResult) {
 	//alert(`Code matched = ${decodedText}`)
-	scanvalue = decodedText;
-	await html5Qrcode.stop();
-	scanning = false;
+	scanvalue = decodedText    
 
 	setTimeout(function(){
 		document.getElementById("submitAttendance").submit();
