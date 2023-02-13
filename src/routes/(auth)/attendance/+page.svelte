@@ -57,6 +57,7 @@ async function stop() {
 function onScanSuccess(decodedText, decodedResult) {
 	//alert(`Code matched = ${decodedText}`)
 	scanvalue = decodedText    
+	scanning = false
 
 	setTimeout(function(){
 		document.getElementById("submitAttendance").submit();
