@@ -120,10 +120,10 @@ export const actions = {
 				  },
 			  },	  
 		})
-		console.log("getClass: "+getClass.length)
+		//console.log("getClass: "+getClass.length)
 
 		//write default none to db
-        if (getClass.length == 0){
+        if (!getClass.length){
 			retUser = await fetch("/api/getUser/"+student_number, { headers: { 'Content-Type': 'application/json' } }).then(x => x.json())
 			//console.log(retUser.fname +' '+retUser.surname)
             nClassName[0] = 'No Class can be signed in or out of at this time'
