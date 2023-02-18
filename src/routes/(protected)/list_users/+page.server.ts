@@ -52,7 +52,7 @@ export const actions = {
 			const msg = {
 			to: bUser.user_email, // Change to your recipient
 			//from: 'cfcibc.northwest@gmail.com', // Change to your verified sender
-			from: 'stevennjoubert@gmail.com', // Change to your verified sender
+			from: 'stevenjoubert@gmail.com', // Change to your verified sender
 			subject: 'Student card for '+bUser.fname,
 			text: 'its working js',
 			html: emailhtml,
