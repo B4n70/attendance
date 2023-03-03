@@ -47,9 +47,10 @@
 				</div>
 
 			{#if data.nClass}
-				<button formaction="?/update_class" type="submit">Update Class Time</button>
+				<button formaction="?/update_class" type="submit">Update Class</button>
+				<button formaction="?/delete_class" type="submit" onclick="confirm('Please confirm you want to delete this class?')  || event.preventDefault();" >Delete Class</button>
 			{:else}
-				<button formaction="?/add_class" type="submit">Add Class Time</button>
+				<button formaction="?/add_class" type="submit">Add Class</button>
 			{/if}
 
 			</form>

@@ -101,4 +101,19 @@ const update_class: Action = async ({ request }) => {
 	throw redirect(303, '/class_times')
 }
 
-export const actions: Actions = { add_class, update_class }
+const delete_class: Action = async ({ request }) => {
+	const data = await request.formData()
+	const status = true
+	const updateID = data.get('id')
+   
+	await db.classes.delete({
+		where: {
+			id: parseInt(updateID),
+		  },
+	})
+
+	throw redirect(303, '/class_times')
+	
+}
+
+export const actions: Actions = { add_class, update_class, delete_class }
