@@ -128,7 +128,6 @@ if(data?.nextClass[0]?.startTime){
 				<input bind:value={endTime} id="endTime" name="endTime" type="text" required />
 				 -->
 			</div>
-		
 		</form>	
 
 		<h1>Attendance for <b>{classAttName}</b></h1>
